@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;width:512px;height:512px;background:#06101f;overflow:hidden}
+#w{position:relative;width:512px;height:512px;background:linear-gradient(135deg,#3ee0ff,#7c6cff);overflow:hidden}
+#shine{position:absolute;inset:-40%;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.5) 50%,transparent 58%);transform:translateX(-120%)}
+#ring{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;border:6px solid rgba(255,255,255,.9);opacity:0}
+svg{position:absolute;inset:0;width:100%;height:100%}
+</style></head><body><div id="w"><div id="shine"></div><div id="ring"></div><svg viewBox="0 0 64 64" id="bolt"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+<script>
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),seg=(t,a,b)=>clamp((t-a)/(b-a),0,1),ease=x=>1-Math.pow(1-x,3);
+window.DUR=3;
+window.renderFrame=t=>{const s=seg(t,.4,1.3);document.getElementById('shine').style.transform='translateX('+(-120+s*240)+'%)';
+ const p=seg(t,1.3,2.3);const r=document.getElementById('ring');r.style.transform='scale('+(0.6+p*1.6)+')';r.style.opacity=p>0&&p<1?(1-p)*.8:0;
+ const k=1+0.06*Math.sin(Math.PI*seg(t,1.25,1.75));document.getElementById('bolt').style.transform='scale('+k+')';};
+renderFrame(0);</script></body></html>
