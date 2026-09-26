@@ -1,0 +1,27 @@
+name: IQSpeed
+options:
+  bundleIdPrefix: net.iqspeed
+  deploymentTarget:
+    iOS: "15.0"
+  developmentLanguage: ar
+settings:
+  base:
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.9"
+targets:
+  IQSpeed:
+    type: application
+    platform: iOS
+    sources:
+      - path: IQSpeed
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: net.iqspeed.app
+        PRODUCT_NAME: IQSpeed
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: IQSpeed/Info.plist
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_BITCODE: NO

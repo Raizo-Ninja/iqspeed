@@ -7,6 +7,12 @@
 <meta name="description" content="سرعتي / Sur3ati — قياس حقيقي لسرعة الإنترنت في العراق عبر خوادم speedtest.net داخل العراق مع تقرير تشخيصي. Real internet speed test for Iraq.">
 <meta name="theme-color" content="#070b16" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#eef2fa" media="(prefers-color-scheme: light)">
 <link rel="canonical" href="https://iqspeed.net/">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="سرعتي">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233ee0ff'/%3E%3Cstop offset='1' stop-color='%237c6cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M35 12 20 38h12l-3 14 15-26H33z' fill='%2306101f'/%3E%3C/svg%3E">
 <meta property="og:title" content="سرعتي — Sur3ati | Iraq Speed Test"><meta property="og:description" content="قياس حقيقي لسرعة الإنترنت في العراق مع تقرير تشخيصي"><meta property="og:url" content="https://iqspeed.net/"><meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +69,7 @@ html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans
   radial-gradient(45% 40% at 60% 90%,var(--aurora3),transparent 70%);
   filter:blur(40px);animation:drift 26s ease-in-out infinite alternate}
 @keyframes drift{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(2%,2%,0) scale(1.06)}}
-.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-block:22px 70px;padding-inline:16px}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-block:calc(22px + env(safe-area-inset-top,0px)) calc(70px + env(safe-area-inset-bottom,0px));padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
 svg.ic{width:1.1em;height:1.1em;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
 /* splash */
@@ -252,12 +258,40 @@ th{color:var(--muted);font-weight:500;font-size:12px}
 tbody tr:hover{background:var(--inset)}
 td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;direction:ltr}
 .tableWrap{overflow-x:auto}
-.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:var(--bg2);border:1px solid var(--line2);padding:10px 18px;border-radius:12px;font-size:14px;opacity:0;transition:.3s var(--ease);pointer-events:none;z-index:9;box-shadow:0 10px 30px -10px rgba(0,0,0,.4)}
+.toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,20px);background:var(--bg2);border:1px solid var(--line2);padding:10px 18px;border-radius:12px;font-size:14px;opacity:0;transition:.3s var(--ease);pointer-events:none;z-index:9;box-shadow:0 10px 30px -10px rgba(0,0,0,.4)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-footer{margin-top:32px;color:var(--muted);font-size:12.5px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
-.apk{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:14px;border:1px solid var(--line2);color:var(--text);text-decoration:none;font-weight:600;font-size:14px;background:var(--surface);transition:border-color .2s,transform .15s}
-.apk:hover{border-color:var(--accent);transform:translateY(-1px)}
-.apk svg{color:var(--accentText)}
+/* get the app */
+.getapp{margin-top:20px}
+.ga-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.ga-head h2{margin:0;font-size:18px}.ga-head p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+.ga-logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:var(--onAccent);flex:none;box-shadow:0 8px 30px -8px var(--glow)}
+.ga-logo svg{width:22px;height:22px}
+.ga-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:860px){.ga-grid{grid-template-columns:1fr}}
+.ga-card{display:flex;align-items:center;gap:14px;padding:16px;border-radius:16px;background:var(--inset);border:1px solid var(--line);color:var(--text);text-decoration:none;transition:border-color .25s,transform .2s var(--ease),box-shadow .25s;position:relative;overflow:hidden;min-height:96px}
+a.ga-card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 14px 34px -18px var(--glow)}
+.ga-ic{width:52px;height:52px;border-radius:14px;flex:none;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line)}
+.ga-ic svg{width:26px;height:26px;fill:none;stroke:var(--accentText);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ga-ios .ga-ic svg{fill:var(--accentText);stroke:none}
+.ga-txt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.ga-txt small{font-size:11.5px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;font-weight:500}
+.ga-txt b{font-size:16px;font-weight:700;font-family:var(--mono);direction:ltr;text-align:start}
+.ga-meta{font-size:12.5px;color:var(--muted)}
+.ga-arrow{color:var(--accentText);flex:none;width:22px;height:22px}
+.ga-btn{padding:9px 14px;font-size:13px;border-radius:11px;flex:none}
+.ga-qr{gap:16px}
+.qr{width:84px;height:84px;padding:7px;flex:none;border-radius:12px;background:#fff;color:#000;box-sizing:border-box}
+.qr svg{width:100%;height:100%;display:block}
+.ga-sheet{margin-top:12px;padding:14px 18px;border-radius:14px;background:var(--inset);border:1px dashed color-mix(in srgb,var(--accent) 35%,transparent);animation:rise .4s var(--ease)}
+.ga-sheet ol{margin:0;padding-inline-start:20px;display:grid;gap:6px;font-size:14px}
+.ga-sheet li::marker{color:var(--accentText);font-weight:700}
+.ga-stores{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.store{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;border-radius:12px;background:#000;color:#fff;text-decoration:none;border:1px solid #333;min-height:48px}
+.store svg{width:26px;height:26px;fill:#fff}
+.store span{display:flex;flex-direction:column;line-height:1.1;direction:ltr;text-align:left}
+.store small{font-size:10px;letter-spacing:.04em}.store b{font-size:17px;font-weight:600}
+footer{margin-top:28px;color:var(--muted);font-size:12.5px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+footer .copy{font-family:var(--mono);font-size:11.5px;direction:ltr}
 @media print{body{background:#fff;color:#000}.card{border-color:#ccc;background:#fff;box-shadow:none}.controls,.actions,#historyCard,footer,#bgc,.aurora,.tools,#splash{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.issue{opacity:1;transform:none}#splash{display:none}}
 </style>
@@ -386,7 +420,40 @@ footer{margin-top:32px;color:var(--muted);font-size:12.5px;text-align:center;dis
   <div class="actions"><button id="clearHist" class="ghost"><svg class="ic"><use href="#i-trash"/></svg><span data-i18n="clear"></span></button></div>
 </div>
 
-<footer><span data-i18n="footer"></span><a id="apkLink" class="apk" href="/iqspeed.apk" hidden><svg class="ic"><use href="#i-down"/></svg><span data-i18n="getApp"></span></a></footer>
+<section class="card getapp" id="getApp">
+  <div class="ga-head">
+    <div class="ga-logo"><svg class="ic"><use href="#i-bolt"/></svg></div>
+    <div><h2 data-i18n="gaTitle"></h2><p data-i18n="gaSub"></p></div>
+  </div>
+  <div class="ga-grid">
+    <a class="ga-card ga-android" id="apkLink" href="/iqspeed.apk">
+      <div class="ga-ic"><svg viewBox="0 0 24 24"><path d="M6 10h12v8a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3zM6 9a6 6 0 0 1 12 0zM8 3l1.5 2.5M16 3l-1.5 2.5M9.5 7h.01M14.5 7h.01"/></svg></div>
+      <div class="ga-txt"><small data-i18n="gaDirect"></small><b>Android · APK</b><span class="ga-meta" id="apkMeta"></span></div>
+      <svg class="ic ga-arrow"><use href="#i-down"/></svg>
+    </a>
+    <div class="ga-card ga-ios" id="iosCard">
+      <div class="ga-ic"><svg viewBox="0 0 24 24"><path d="M15.5 3c-1.7.1-3.5 1.2-3.5 3.2 1.9.1 3.4-1.4 3.5-3.2zM12 7c-1.3 0-2.4-.8-3.9-.8C5.8 6.2 4 8.3 4 12c0 3.6 2.4 8 4.4 8 1.2 0 1.8-.8 3.6-.8s2.2.8 3.6.8c1.7 0 3.3-2.7 4.1-4.6-2.1-.9-3-3.1-2.6-5.2.3-1.2 1-2 2-2.6C18.1 6.5 16.3 6.2 15.4 6.2c-1.5 0-2.4.8-3.4.8z"/></svg></div>
+      <div class="ga-txt"><small data-i18n="gaIosKind"></small><b>iPhone · iPad</b><span class="ga-meta" data-i18n="gaIosHow"></span></div>
+      <button class="ghost ga-btn" id="iosHowBtn" type="button"><span data-i18n="gaIosBtn"></span></button>
+    </div>
+    <div class="ga-card ga-qr">
+      <div class="qr" aria-label="QR: iqspeed.net/get"><svg viewBox="0 0 25 25" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM11 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM16 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h1v1h-1zM12 1h1v1h-1zM13 1h1v1h-1zM18 1h1v1h-1zM24 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM10 2h1v1h-1zM12 2h1v1h-1zM14 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM14 3h1v1h-1zM16 3h1v1h-1zM18 3h1v1h-1zM20 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM13 4h1v1h-1zM15 4h1v1h-1zM16 4h1v1h-1zM18 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM13 5h1v1h-1zM18 5h1v1h-1zM24 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM9 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM21 8h1v1h-1zM24 8h1v1h-1zM1 9h1v1h-1zM2 9h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM17 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM23 9h1v1h-1zM0 10h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM14 10h1v1h-1zM15 10h1v1h-1zM16 10h1v1h-1zM17 10h1v1h-1zM19 10h1v1h-1zM21 10h1v1h-1zM22 10h1v1h-1zM2 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM14 11h1v1h-1zM15 11h1v1h-1zM20 11h1v1h-1zM22 11h1v1h-1zM23 11h1v1h-1zM0 12h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM11 12h1v1h-1zM12 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM19 12h1v1h-1zM21 12h1v1h-1zM22 12h1v1h-1zM23 12h1v1h-1zM24 12h1v1h-1zM0 13h1v1h-1zM2 13h1v1h-1zM7 13h1v1h-1zM9 13h1v1h-1zM10 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM20 13h1v1h-1zM23 13h1v1h-1zM2 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM13 14h1v1h-1zM14 14h1v1h-1zM15 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM21 14h1v1h-1zM22 14h1v1h-1zM3 15h1v1h-1zM9 15h1v1h-1zM10 15h1v1h-1zM12 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM18 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM22 15h1v1h-1zM23 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM9 16h1v1h-1zM11 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM21 16h1v1h-1zM22 16h1v1h-1zM8 17h1v1h-1zM10 17h1v1h-1zM12 17h1v1h-1zM13 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM20 17h1v1h-1zM0 18h1v1h-1zM1 18h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM9 18h1v1h-1zM11 18h1v1h-1zM12 18h1v1h-1zM14 18h1v1h-1zM16 18h1v1h-1zM18 18h1v1h-1zM20 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM11 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM20 19h1v1h-1zM21 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM12 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM3 21h1v1h-1zM4 21h1v1h-1zM6 21h1v1h-1zM13 21h1v1h-1zM15 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM22 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM0 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM6 22h1v1h-1zM10 22h1v1h-1zM14 22h1v1h-1zM16 22h1v1h-1zM18 22h1v1h-1zM21 22h1v1h-1zM23 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM9 23h1v1h-1zM10 23h1v1h-1zM12 23h1v1h-1zM15 23h1v1h-1zM17 23h1v1h-1zM19 23h1v1h-1zM20 23h1v1h-1zM21 23h1v1h-1zM22 23h1v1h-1zM23 23h1v1h-1zM0 24h1v1h-1zM1 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM14 24h1v1h-1zM15 24h1v1h-1zM18 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1z"/></svg></div>
+      <div class="ga-txt"><small data-i18n="gaScan"></small><b>iqspeed.net/get</b><span class="ga-meta" data-i18n="gaScanSub"></span></div>
+    </div>
+  </div>
+  <div class="ga-stores" id="storeRow" hidden>
+    <a class="store" id="storePlay" href="#" hidden><svg viewBox="0 0 24 24"><path d="M3 3.5v17l10-8.5z"/><path d="M3 3.5 15.5 10l-2.5 2z"/><path d="M3 20.5 15.5 14l-2.5-2z"/><path d="M15.5 10 20 12l-4.5 2-2.5-2z"/></svg><span><small>GET IT ON</small><b>Google Play</b></span></a>
+    <a class="store" id="storeApp" href="#" hidden><svg viewBox="0 0 24 24"><path d="M15.5 3c-1.7.1-3.5 1.2-3.5 3.2 1.9.1 3.4-1.4 3.5-3.2zM12 7c-1.3 0-2.4-.8-3.9-.8C5.8 6.2 4 8.3 4 12c0 3.6 2.4 8 4.4 8 1.2 0 1.8-.8 3.6-.8s2.2.8 3.6.8c1.7 0 3.3-2.7 4.1-4.6-2.1-.9-3-3.1-2.6-5.2.3-1.2 1-2 2-2.6C18.1 6.5 16.3 6.2 15.4 6.2c-1.5 0-2.4.8-3.4.8z"/></svg><span><small>Download on the</small><b>App Store</b></span></a>
+  </div>
+  <div class="ga-sheet" id="iosSheet" hidden>
+    <ol>
+      <li data-i18n="gaStep1"></li>
+      <li data-i18n="gaStep2"></li>
+      <li data-i18n="gaStep3"></li>
+    </ol>
+  </div>
+</section>
+<footer><span data-i18n="footer"></span><span class="copy">© <span id="yr"></span> iqspeed.net</span></footer>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -407,7 +474,7 @@ ar:{dir:'rtl',locale:'ar-IQ',title:'سرعتي',tagline:'IRAQ SPEED TEST',subtit
  ready:'جاهز للقياس. اضغط "ابدأ القياس".',calib:'معايرة…',identify:'جاري التعرف على الاتصال…',pinging:'قياس زمن الاستجابة… {i}/{n}',downloading:'قياس سرعة التحميل… {s} ث',uploading:'قياس سرعة الرفع… {s} ث',done:'اكتمل القياس.',stopped:'تم إيقاف القياس.',
  kPing:'Ping',kDown:'التحميل',kUp:'الرفع',kLoaded:'Ping تحت الضغط',loadedPing:'Ping تحت الضغط',peak:'ذروة التحميل',
  reportTitle:'التقرير التشخيصي',copy:'نسخ التقرير',print:'طباعة / حفظ PDF',again:'إعادة القياس',copied:'تم نسخ التقرير',
- getApp:'حمّل تطبيق أندرويد',history:'القياسات السابقة',historyNote:'محفوظة على هذا الجهاز',date:'التاريخ',grade:'التقييم',clear:'مسح السجل',
+ gaTitle:'حمّل تطبيق سرعتي',gaSub:'قياس بلمسة واحدة، تقرير جاهز للمشاركة، ويعمل على أندرويد والآيفون.',gaDirect:'تنزيل مباشر',gaIosKind:'من Safari',gaIosHow:'إضافة إلى الشاشة الرئيسية',gaIosBtn:'كيف؟',gaScan:'امسح الباركود',gaScanSub:'يفتح صفحة التنزيل على هاتفك',gaStep1:'افتح iqspeed.net في متصفح Safari على الآيفون.',gaStep2:'اضغط زر المشاركة (المربع مع السهم) في الأسفل.',gaStep3:'اختر «إضافة إلى الشاشة الرئيسية» ثم «إضافة». سيظهر سرعتي كتطبيق بأيقونته.',gaVer:'الإصدار {v}',history:'القياسات السابقة',historyNote:'محفوظة على هذا الجهاز',date:'التاريخ',grade:'التقييم',clear:'مسح السجل',
  footer:'القيم تمثل السرعة الفعلية بين جهازك وأقرب خادم قياس. للحصول على نتيجة دقيقة: أغلق التحميلات والفيديو أثناء الاختبار، وفضّل الكابل على الواي فاي.',
  fixLabel:'الحل المقترح:',score:'النتيجة {s}/100',crit:'{n} مشكلة حرجة',noCrit:'لا مشاكل حرجة',warns:'{n} تنبيه',
  srvOokla:'تلقائي — أسرع وأفضل خادم (speedtest.net + Cloudflare)',picking:'اختيار أفضل خادم من خوادم speedtest.net في العراق…',picked:'الخادم: {s} ({v} ms)',probing:'مقارنة أسرع الخوادم بالسرعة الفعلية…',modeSpeed:'اختبار السرعة',modeGame:'اختبار الألعاب',serverLbl:'الخادم',srvCf:'Cloudflare — أقرب خادم (تلقائي)',srvFast:'Netflix Fast.com — كاش مزود الخدمة',srvCustom:'خادم خاص (LibreSpeed)',
@@ -458,7 +525,7 @@ ku:{dir:'rtl',locale:'ckb-IQ',title:'خێراییم',tagline:'IRAQ SPEED TEST',s
  ready:'ئامادەیە بۆ پێوان. کرتە لە «دەستپێکردنی پێوان» بکە.',calib:'ڕێکخستن…',identify:'ناسینەوەی پەیوەندی…',pinging:'پێوانی کاتی وەڵامدانەوە… {i}/{n}',downloading:'پێوانی خێرایی داگرتن… {s} چرکە',uploading:'پێوانی خێرایی بارکردن… {s} چرکە',done:'پێوان تەواو بوو.',stopped:'پێوان وەستێنرا.',
  kPing:'Ping',kDown:'داگرتن',kUp:'بارکردن',kLoaded:'Ping لەژێر بارە',loadedPing:'Ping لەژێر بارە',peak:'لوتکەی داگرتن',
  reportTitle:'ڕاپۆرتی دەستنیشانکردن',copy:'کۆپیکردنی ڕاپۆرت',print:'چاپکردن / پاشەکەوتی PDF',again:'دووبارە پێوان',copied:'ڕاپۆرت کۆپی کرا',
- getApp:'ئەپی ئەندرۆید دابگرە',history:'پێوانەکانی پێشوو',historyNote:'تەنها لەسەر ئەم ئامێرە پاشەکەوت کراوە',date:'بەروار',grade:'هەڵسەنگاندن',clear:'سڕینەوەی مێژوو',
+ gaTitle:'ئەپی خێراییم دابگرە',gaSub:'پێوان بە یەک دەستلێدان، ڕاپۆرتی ئامادە بۆ هاوبەشکردن، کار دەکات لەسەر ئەندرۆید و ئایفۆن.',gaDirect:'داگرتنی ڕاستەوخۆ',gaIosKind:'لە Safari',gaIosHow:'زیادکردن بۆ شاشەی سەرەکی',gaIosBtn:'چۆن؟',gaScan:'بارکۆدەکە سکان بکە',gaScanSub:'پەڕەی داگرتن لەسەر مۆبایلەکەت دەکاتەوە',gaStep1:'iqspeed.net لە Safari لەسەر ئایفۆن بکەرەوە.',gaStep2:'دوگمەی هاوبەشکردن (چوارگۆشە لەگەڵ تیر) لە خوارەوە دابگرە.',gaStep3:'«Add to Home Screen» هەڵبژێرە پاشان «Add». خێراییم وەک ئەپ بە ئایکۆنەکەی دەردەکەوێت.',gaVer:'وەشان {v}',history:'پێوانەکانی پێشوو',historyNote:'تەنها لەسەر ئەم ئامێرە پاشەکەوت کراوە',date:'بەروار',grade:'هەڵسەنگاندن',clear:'سڕینەوەی مێژوو',
  footer:'نرخەکان خێرایی ڕاستەقینەی نێوان ئامێرەکەت و نزیکترین ڕاژەکار نیشان دەدەن. بۆ ئەنجامی وردتر: داگرتن و ڤیدیۆ دابخە لە کاتی تاقیکردنەوەدا، و کێبڵ باشترە لە وایفای.',
  fixLabel:'چارەسەری پێشنیارکراو:',score:'ئەنجام {s}/100',crit:'{n} کێشەی گرنگ',noCrit:'هیچ کێشەیەکی گرنگ نییە',warns:'{n} ئاگاداری',
  srvOokla:'خۆکار — خێراترین و باشترین ڕاژەکار (speedtest.net + Cloudflare)',picking:'هەڵبژاردنی باشترین ڕاژەکار لە ڕاژەکارەکانی speedtest.net لە عێراق…',picked:'ڕاژەکار: {s} ({v} ms)',probing:'بەراوردکردنی خێراترین ڕاژەکارەکان بە خێرایی ڕاستەقینە…',modeSpeed:'تاقیکردنەوەی خێرایی',modeGame:'تاقیکردنەوەی یاری',serverLbl:'ڕاژەکار',srvCf:'Cloudflare — نزیکترین ڕاژەکار (خۆکار)',srvFast:'Netflix Fast.com — کاشی دابینکەر',srvCustom:'ڕاژەکاری تایبەت (LibreSpeed)',
@@ -509,7 +576,7 @@ en:{dir:'ltr',locale:'en-GB',title:'Sur3ati',tagline:'IRAQ SPEED TEST',subtitle:
  ready:'Ready. Press "Start test".',calib:'Calibrating…',identify:'Identifying your connection…',pinging:'Measuring latency… {i}/{n}',downloading:'Measuring download… {s}s',uploading:'Measuring upload… {s}s',done:'Test complete.',stopped:'Test stopped.',
  kPing:'Ping',kDown:'Download',kUp:'Upload',kLoaded:'Ping under load',loadedPing:'Ping under load',peak:'Peak download',
  reportTitle:'Diagnostic report',copy:'Copy report',print:'Print / Save PDF',again:'Run again',copied:'Report copied',
- getApp:'Get the Android app',history:'Previous tests',historyNote:'stored on this device only',date:'Date',grade:'Grade',clear:'Clear history',
+ gaTitle:'Get the Sur3ati app',gaSub:'One-tap testing, shareable reports, on Android and iPhone.',gaDirect:'Direct download',gaIosKind:'From Safari',gaIosHow:'Add to Home Screen',gaIosBtn:'How?',gaScan:'Scan the QR code',gaScanSub:'Opens the download page on your phone',gaStep1:'Open iqspeed.net in Safari on your iPhone.',gaStep2:'Tap the Share button (square with an arrow) at the bottom.',gaStep3:'Choose “Add to Home Screen”, then “Add”. Sur3ati appears as an app with its icon.',gaVer:'Version {v}',history:'Previous tests',historyNote:'stored on this device only',date:'Date',grade:'Grade',clear:'Clear history',
  footer:'Values reflect the real speed between your device and the nearest test server. For an accurate result, pause downloads and video during the test and prefer a cable over Wi-Fi.',
  fixLabel:'Suggested fix:',score:'Score {s}/100',crit:'{n} critical issue(s)',noCrit:'no critical issues',warns:'{n} warning(s)',
  srvOokla:'Auto — fastest & best server (speedtest.net + Cloudflare)',picking:'Choosing the best speedtest.net server in Iraq…',picked:'Server: {s} ({v} ms)',probing:'Comparing the fastest servers by real throughput…',modeSpeed:'Speed test',modeGame:'Gaming test',serverLbl:'Server',srvCf:'Cloudflare — nearest server (auto)',srvFast:'Netflix Fast.com — ISP cache',srvCustom:'Custom server (LibreSpeed)',
@@ -1183,7 +1250,16 @@ if(savedTheme)applyTheme(savedTheme);
 applyLang(savedLang);
 fillServerSelect();
 try{$('serverSel').value='ookla-auto';const c=localStorage.getItem('sur3ati_custom');if(c)$('customUrl').value=c;$('customUrl').hidden=serverKey()!=='custom';}catch(e){}
-if(!/IQSpeedApp/.test(navigator.userAgent))$('apkLink').hidden=false;
+const UA=navigator.userAgent, inApp=/IQSpeedApp/.test(UA), isIOS=/iPhone|iPad|iPod/.test(UA)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+if(inApp||standalone){ $('getApp').hidden=true; }
+$('iosHowBtn').onclick=()=>{ const sh=$('iosSheet'); sh.hidden=!sh.hidden; };
+if(isIOS){ $('iosCard').style.order='-1'; }
+$('yr').textContent=new Date().getFullYear();
+fetch('/app-version.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{ if(j&&j.versionName)$('apkMeta').textContent=t('gaVer',{v:j.versionName}); }).catch(()=>{});
+// store badges appear automatically once the apps are listed (set the URLs in stores.json)
+fetch('/stores.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{ if(!j)return; let any=false; if(j.play){$('storePlay').href=j.play;$('storePlay').hidden=false;any=true;} if(j.appstore){$('storeApp').href=j.appstore;$('storeApp').hidden=false;any=true;} if(any)$('storeRow').hidden=false; }).catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol==='https:'&&!inApp){ navigator.serviceWorker.register('/sw.js').catch(()=>{}); }
 loadMeta();
 
 /* ================= splash: Iraq connects to the world ================= */
