@@ -32,11 +32,11 @@ Most speed tests people in Iraq use end up on servers far away, so the numbers r
 
 ## Author
 
-Designed and developed by **Mohammed Ali Ismail (Raizo)**, Erbil.
+Designed and developed by **Mohammed Ismael (Raizo)**, Erbil.
 I own the project and do all the work on it: measurement engine, design, apps, hosting and branding.
 
 Contact: hello@iqspeed.net
 
 ---
 
-© 2026 Mohammed Ali Ismail. All rights reserved.
+© 2026 Mohammed Ismael. All rights reserved.
