@@ -818,8 +818,11 @@ async function measurePing(n,stepNo){
   const st=stats(rtts);
   return {ping:st.median,min:st.min,p95:st.p95,jitter:st.jitter,samples:rtts,fails,total:n};
 }
-// trimmed estimate: drop ramp-up, then drop the lowest 25% of samples and average the rest
-function estimate(samples,rampFrac){ const body=samples.slice(Math.floor(samples.length*rampFrac)); if(body.length<3)return {avg:body.length?mean(body):0,cv:0}; const s=[...body].sort((a,b)=>a-b).slice(Math.floor(body.length*0.25)); const avg=mean(s); const cv=Math.sqrt(mean(body.map(x=>(x-avg)**2)))/(avg||1); return {avg,cv}; }
+// steady-state estimate: drop the ramp-up, then average throughput over the remaining window;
+// stability = 1 - CV of 1-second bins (bursty 250 ms samples are not judged individually)
+function estimate(samples,rampFrac){ const body=samples.slice(Math.floor(samples.length*rampFrac)); if(!body.length)return {avg:0,cv:0};
+  const avg=mean(body); const bins=[]; for(let i=0;i<body.length;i+=4){ bins.push(mean(body.slice(i,i+4))); }
+  const cv=bins.length>2?Math.sqrt(mean(bins.map(x=>(x-avg)**2)))/(avg||1):0; return {avg,cv}; }
 function loadedProbe(list,intervalMs){ let stop=false; (async()=>{ while(!stop&&running){ try{ list.push(await probeOnce(srv.ping(),aborter.signal)); }catch(e){} await sleep(intervalMs); } })(); return ()=>{stop=true;}; }
 async function measureDownload(seconds){
   const start=performance.now(); let bytes=0, fails=0, reqs=0, active=0, maxWorkers=2; const samples=[], loaded=[]; let lastT=start,lastB=0, lastCheckSpeed=0;
