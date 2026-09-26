@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:"Qabas";src:url(fonts/qabas-regular.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"Qabas";src:url(fonts/qabas-bold.woff2) format("woff2");font-weight:700}
+@font-face{font-family:"Qabas";src:url(fonts/qabas-light.woff2) format("woff2");font-weight:300}
+:root{--bg:#070b16;--bg2:#0d1425;--text:#e8eefb;--muted:#8a99ba;--accent:#3ee0ff;--accent2:#7c6cff;--good:#2fd47a;--warn:#ffb03b;--bad:#ff5d6c}
+*{box-sizing:border-box}html,body{margin:0;background:#000}
+body{font-family:"Qabas","IBM Plex Sans",sans-serif;color:var(--text)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;direction:ltr}
+.art{position:relative;overflow:hidden;background:var(--bg);display:none}
+.art.on{display:block}
+.aurora{position:absolute;inset:-20%;background:radial-gradient(40% 35% at 30% 20%,rgba(62,224,255,.16),transparent 70%),radial-gradient(35% 35% at 75% 15%,rgba(124,108,255,.18),transparent 70%),radial-gradient(45% 40% at 60% 90%,rgba(62,224,255,.08),transparent 70%);filter:blur(50px)}
+canvas.bg{position:absolute;inset:0}
+.logo{border-radius:28%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;box-shadow:0 30px 90px -25px rgba(62,224,255,.6)}
+.logo svg{width:52%;height:52%}
+.c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+h1{margin:0;font-weight:700;line-height:1.15}
+.sub{color:var(--muted);font-weight:300}
+.tag{font-family:"IBM Plex Mono",monospace;direction:ltr;letter-spacing:.35em;color:var(--accent)}
+.url{font-family:"IBM Plex Mono",monospace;direction:ltr;font-weight:600}.url em{font-style:normal;color:var(--accent)}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+/* avatar */
+#avatar{width:1024px;height:1024px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+#avatar svg{position:absolute;inset:0;width:100%;height:100%}
+/* covers */
+#fb{width:1640px;height:624px}#x{width:1500px;height:500px}#yt{width:2560px;height:1440px}
+.cover .c{flex-direction:row;gap:60px;justify-content:center}
+.cover .logo{width:200px;height:200px;flex:none}
+.cover h1{font-size:150px}.cover .sub{font-size:44px;margin-top:6px}.cover .tag{font-size:26px;margin-top:10px}
+.cover .txt{text-align:start}
+.cover .url{position:absolute;bottom:40px;left:0;right:0;text-align:center;font-size:36px;color:var(--muted)}
+/* posts */
+.post{width:1080px;height:1080px}.story{width:1080px;height:1920px}
+.post .c,.story .c{padding:90px}
+.post h1{font-size:104px}.story h1{font-size:118px}
+.post .sub,.story .sub{font-size:44px;margin-top:22px;max-width:820px;line-height:1.6}
+.post .logo{width:170px;height:170px;margin-bottom:40px}.story .logo{width:200px;height:200px;margin-bottom:50px}
+.post .url,.story .url{position:absolute;bottom:70px;left:0;right:0;text-align:center;font-size:44px}
+.stat{display:flex;gap:18px;margin-top:50px}
+.tile{padding:26px 30px;border-radius:26px;background:rgba(17,26,46,.85);border:1px solid rgba(120,150,210,.18);min-width:250px}
+.tile small{display:block;color:var(--muted);font-size:26px;margin-bottom:6px}
+.tile b{font-family:"IBM Plex Mono",monospace;font-size:60px;direction:ltr}.tile b i{font-style:normal;font-size:24px;color:var(--muted);margin-left:8px;font-family:"Qabas"}
+.qr{width:260px;height:260px;padding:20px;background:#fff;border-radius:30px;margin-top:40px}.qr svg{width:100%;height:100%;color:#000;display:block}
+.pills{display:flex;gap:14px;margin-top:34px}.pill{padding:14px 28px;border-radius:999px;border:1px solid rgba(120,150,210,.3);background:rgba(17,26,46,.8);font-size:28px}
+.grade{width:120px;height:120px;border-radius:30px;background:var(--good);color:#06101f;display:grid;place-items:center;font-family:"IBM Plex Mono",monospace;font-size:72px;font-weight:600;box-shadow:0 0 60px -10px var(--good);margin-bottom:30px}
+/* brand sheet */
+#sheet{width:1600px;height:1000px;padding:70px;display:none;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+#sheet.on{display:grid}
+#sheet h2{margin:0 0 16px;font-size:34px}
+.sw{display:flex;gap:14px;flex-wrap:wrap}.swatch{width:150px;border-radius:18px;overflow:hidden;border:1px solid rgba(120,150,210,.2)}
+.swatch i{display:block;height:90px}.swatch span{display:block;padding:10px 12px;font-size:16px;font-family:"IBM Plex Mono",monospace;direction:ltr;background:var(--bg2)}
+.swatch em{display:block;font-style:normal;color:var(--muted);font-family:"Qabas";font-size:15px;direction:rtl}
+.type div{margin:8px 0}
+.dont{color:var(--muted);font-size:20px;line-height:1.8}
+</style></head><body>
+
+<div class="art" id="avatar"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+
+<div class="art cover" id="fb"><div class="aurora"></div><canvas class="bg"></canvas><div class="map"></div>
+  <div class="c"><div class="logo"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+  <div class="txt"><h1>سرعتي</h1><div class="sub">قياس حقيقي لسرعة الإنترنت في العراق · تقرير تشخيصي بعد كل قياس</div><div class="tag">IRAQ SPEED TEST · iqspeed.net</div></div></div></div>
+
+<div class="art cover" id="x"><div class="aurora"></div><canvas class="bg"></canvas><div class="map"></div>
+  <div class="c"><div class="logo" style="width:160px;height:160px"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+  <div class="txt"><h1 style="font-size:120px">سرعتي</h1><div class="sub" style="font-size:36px">قياس حقيقي لسرعة الإنترنت في العراق</div><div class="tag" style="font-size:22px">IRAQ SPEED TEST · iqspeed.net</div></div></div></div>
+
+<div class="art cover" id="yt"><div class="aurora"></div><canvas class="bg"></canvas><div class="map"></div>
+  <div class="c"><div class="logo" style="width:260px;height:260px"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+  <div class="txt"><h1 style="font-size:200px">سرعتي</h1><div class="sub" style="font-size:56px">قياس حقيقي لسرعة الإنترنت في العراق</div><div class="tag" style="font-size:34px">IRAQ SPEED TEST · iqspeed.net</div></div></div></div>
+
+<div class="art post" id="p1"><div class="aurora"></div><canvas class="bg"></canvas>
+  <div class="c"><div class="logo"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+  <h1>كم سرعة إنترنتك فعلاً؟</h1><div class="sub">قياس حقيقي عبر خوادم speedtest.net داخل العراق — أسرع خادم يُختار تلقائياً.</div>
+  <div class="stat"><div class="tile"><small>التحميل</small><b>142.1<i>Mbps</i></b></div><div class="tile"><small>الرفع</small><b>87.8<i>Mbps</i></b></div><div class="tile"><small>Ping</small><b>9<i>ms</i></b></div></div>
+  <div class="url"><em>iqspeed</em>.net</div></div></div>
+
+<div class="art post" id="p2"><div class="aurora"></div><canvas class="bg"></canvas>
+  <div class="c"><div class="grade">B</div><h1>تقرير تشخيصي بعد كل قياس</h1><div class="sub">يخبرك أين المشكلة بالضبط: Ping، تذبذب، Bufferbloat، أو سرعة أقل من باقتك — مع الحل المقترح لكل واحدة.</div>
+  <div class="url"><em>iqspeed</em>.net</div></div></div>
+
+<div class="art post" id="p3"><div class="aurora"></div><canvas class="bg"></canvas>
+  <div class="c"><div class="logo"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+  <h1>مجاناً · بثلاث لغات</h1><div class="sub">عربي · کوردی سۆرانی · English<br>على الموقع، وتطبيق أندرويد، والآيفون.</div>
+  <div class="pills"><div class="pill">🌐 iqspeed.net</div><div class="pill">Android</div><div class="pill">iPhone</div></div>
+  <div class="url"><em>iqspeed</em>.net</div></div></div>
+
+<div class="art story" id="st1"><div class="aurora"></div><canvas class="bg"></canvas>
+  <div class="c"><div class="logo"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+  <h1>اختبر سرعتك الآن</h1><div class="sub">قياس حقيقي من داخل العراق<br>مع تقرير يشرح المشكلة والحل</div>
+  <div class="qr" id="qr1"><svg viewBox="0 0 25 25" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM11 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM16 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h1v1h-1zM12 1h1v1h-1zM13 1h1v1h-1zM18 1h1v1h-1zM24 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM10 2h1v1h-1zM12 2h1v1h-1zM14 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM14 3h1v1h-1zM16 3h1v1h-1zM18 3h1v1h-1zM20 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM13 4h1v1h-1zM15 4h1v1h-1zM16 4h1v1h-1zM18 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM13 5h1v1h-1zM18 5h1v1h-1zM24 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM8 7h1v1h-1zM0 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM9 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM21 8h1v1h-1zM24 8h1v1h-1zM1 9h1v1h-1zM2 9h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM17 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM23 9h1v1h-1zM0 10h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM14 10h1v1h-1zM15 10h1v1h-1zM16 10h1v1h-1zM17 10h1v1h-1zM19 10h1v1h-1zM21 10h1v1h-1zM22 10h1v1h-1zM2 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM14 11h1v1h-1zM15 11h1v1h-1zM20 11h1v1h-1zM22 11h1v1h-1zM23 11h1v1h-1zM0 12h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM11 12h1v1h-1zM12 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM19 12h1v1h-1zM21 12h1v1h-1zM22 12h1v1h-1zM23 12h1v1h-1zM24 12h1v1h-1zM0 13h1v1h-1zM2 13h1v1h-1zM7 13h1v1h-1zM9 13h1v1h-1zM10 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM20 13h1v1h-1zM23 13h1v1h-1zM2 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM13 14h1v1h-1zM14 14h1v1h-1zM15 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM21 14h1v1h-1zM22 14h1v1h-1zM3 15h1v1h-1zM9 15h1v1h-1zM10 15h1v1h-1zM12 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM18 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM22 15h1v1h-1zM23 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM9 16h1v1h-1zM11 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM21 16h1v1h-1zM22 16h1v1h-1zM8 17h1v1h-1zM10 17h1v1h-1zM12 17h1v1h-1zM13 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM20 17h1v1h-1zM0 18h1v1h-1zM1 18h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM9 18h1v1h-1zM11 18h1v1h-1zM12 18h1v1h-1zM14 18h1v1h-1zM16 18h1v1h-1zM18 18h1v1h-1zM20 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM11 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM20 19h1v1h-1zM21 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM12 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM3 21h1v1h-1zM4 21h1v1h-1zM6 21h1v1h-1zM13 21h1v1h-1zM15 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM22 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM0 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM6 22h1v1h-1zM10 22h1v1h-1zM14 22h1v1h-1zM16 22h1v1h-1zM18 22h1v1h-1zM21 22h1v1h-1zM23 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM9 23h1v1h-1zM10 23h1v1h-1zM12 23h1v1h-1zM15 23h1v1h-1zM17 23h1v1h-1zM19 23h1v1h-1zM20 23h1v1h-1zM21 23h1v1h-1zM22 23h1v1h-1zM23 23h1v1h-1zM0 24h1v1h-1zM1 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM14 24h1v1h-1zM15 24h1v1h-1zM18 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1z"/></svg></div><div class="sub" style="font-size:30px;margin-top:18px">امسح الباركود أو ادخل الرابط</div>
+  <div class="url"><em>iqspeed</em>.net</div></div></div>
+
+<div class="art story" id="st2"><div class="aurora"></div><canvas class="bg"></canvas>
+  <div class="c"><h1>هل سرعتك تطابق باقتك؟</h1><div class="sub">أدخل سرعة اشتراكك، واقرأ النسبة الفعلية التي تصلك — وجاهز للطباعة كتقرير للمزود.</div>
+  <div class="stat" style="flex-direction:column;gap:14px"><div class="tile"><small>الباقة المشتركة</small><b>200<i>Mbps</i></b></div><div class="tile"><small>الفعلي</small><b>142.1<i>Mbps</i></b></div><div class="tile"><small>النسبة</small><b>71<i>%</i></b></div></div>
+  <div class="url"><em>iqspeed</em>.net</div></div></div>
+
+<div id="sheet" class="art">
+  <div>
+    <h2>الشعار</h2>
+    <div style="display:flex;gap:24px;align-items:center;margin-bottom:34px">
+      <div class="logo" style="width:120px;height:120px"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+      <div class="logo" style="width:120px;height:120px;background:#fff;box-shadow:none"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+      <div class="logo" style="width:120px;height:120px;background:#06101f;box-shadow:none;border:1px solid rgba(120,150,210,.3)"><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#3ee0ff"/></svg></div>
+      <div style="font-size:64px;font-weight:700">سرعتي <span class="mono" style="font-size:28px;color:var(--muted);font-weight:500">Sur3ati · iqspeed.net</span></div>
+    </div>
+    <h2>الألوان</h2>
+    <div class="sw">
+      <div class="swatch"><i style="background:#3ee0ff"></i><span>#3EE0FF<em>الأساسي — سماوي</em></span></div>
+      <div class="swatch"><i style="background:#7c6cff"></i><span>#7C6CFF<em>الثانوي — بنفسجي</em></span></div>
+      <div class="swatch"><i style="background:#070b16"></i><span>#070B16<em>الخلفية</em></span></div>
+      <div class="swatch"><i style="background:#0d1425"></i><span>#0D1425<em>الأسطح</em></span></div>
+      <div class="swatch"><i style="background:#e8eefb"></i><span>#E8EEFB<em>النص</em></span></div>
+      <div class="swatch"><i style="background:#8a99ba"></i><span>#8A99BA<em>النص الثانوي</em></span></div>
+      <div class="swatch"><i style="background:#2fd47a"></i><span>#2FD47A<em>جيد</em></span></div>
+      <div class="swatch"><i style="background:#ffb03b"></i><span>#FFB03B<em>تنبيه</em></span></div>
+      <div class="swatch"><i style="background:#ff5d6c"></i><span>#FF5D6C<em>مشكلة</em></span></div>
+    </div>
+  </div>
+  <div>
+    <h2>الخطوط</h2>
+    <div class="type">
+      <div style="font-size:54px;font-weight:700">UniSIRWAN Qabas Bold — العناوين</div>
+      <div style="font-size:30px">UniSIRWAN Qabas Regular — النصوص العربية والكوردية</div>
+      <div style="font-size:26px;font-weight:300;color:var(--muted)">UniSIRWAN Qabas Light — التلميحات والنصوص الثانوية</div>
+      <div class="mono" style="font-size:30px;text-align:left">IBM Plex Mono — 142.1 Mbps · 9 ms · iqspeed.net</div>
+      <div class="mono" style="font-size:24px;text-align:left;color:var(--muted);font-family:'IBM Plex Sans',sans-serif">IBM Plex Sans — English text</div>
+    </div>
+    <h2 style="margin-top:34px">قواعد الاستخدام</h2>
+    <div class="dont">
+      • الخلفية داكنة دائماً في السوشل؛ الشعار بتدرّج السماوي→البنفسجي على الداكن، أو أسود على الأبيض.<br>
+      • الأرقام دائماً بخط Plex Mono واتجاه LTR (142.1 Mbps وليس ١٤٢٫١).<br>
+      • الرابط يُكتب: <span class="mono" style="color:var(--text)">iqspeed.net</span> مع تلوين "iqspeed" بالسماوي.<br>
+      • الوسوم: <span class="mono" style="color:var(--text)">#سرعتي #iqspeed #سرعة_الانترنت #العراق</span><br>
+      • النبرة: واضحة، مباشرة، أرقام حقيقية، بلا مبالغة.
+    </div>
+  </div>
+</div>
+
+<script>
+const IRAQ=[[42.36,37.11],[42.8,37.38],[43.5,37.25],[44.2,37.3],[44.8,37.17],[45.0,36.75],[45.4,36.0],[45.7,35.8],[46.1,35.35],[46.2,35.05],[45.9,34.8],[45.5,34.6],[45.4,33.98],[45.9,33.6],[46.1,33.0],[46.5,32.7],[47.1,32.4],[47.5,31.8],[47.8,31.0],[47.7,30.4],[48.0,30.0],[48.6,29.9],[48.0,29.9],[47.7,30.1],[47.1,30.0],[46.5,29.1],[44.7,29.2],[42.9,30.5],[42.1,31.1],[40.4,31.95],[39.2,32.15],[39.1,32.4],[38.8,33.37],[40.0,34.0],[41.0,34.4],[41.2,35.1],[41.3,35.6],[41.4,36.5],[42.0,36.9]];
+function bg(el,seedv){ const c=el.querySelector('canvas.bg'); if(!c)return; const W=el.clientWidth,H=el.clientHeight; c.width=W;c.height=H; const x=c.getContext('2d'); let seed=seedv||11; const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646;};
+  const P=Array.from({length:Math.round(W*H/22000)},()=>({x:rnd()*W,y:rnd()*H,r:rnd()*2+1})); x.lineWidth=1.2;
+  for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<170){x.globalAlpha=(1-d/170)*.16;x.strokeStyle='#3ee0ff';x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}}
+  x.globalAlpha=1;x.fillStyle='rgba(180,220,255,.55)';for(const p of P){x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();} }
+function map(el){ const m=el.querySelector('.map'); if(!m)return; const W=el.clientWidth,H=el.clientHeight; const k=H/8.5; const G=(lon,lat)=>[W*0.18+(lon-43.7)*k*0.86, H*0.5-(lat-33.3)*k];
+  const poly=IRAQ.map(p=>G(...p).map(v=>v.toFixed(1)).join(',')).join(' ');
+  m.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" style="direction:ltr"><polygon points="'+poly+'" fill="rgba(62,224,255,.08)" stroke="rgba(62,224,255,.55)" stroke-width="3" stroke-linejoin="round" style="filter:drop-shadow(0 0 24px rgba(62,224,255,.35))"/></svg>'; }
+window.showOnly=function(id){ document.querySelectorAll('.art').forEach(a=>a.classList.toggle('on',a.id===id)); const el=document.getElementById(id); bg(el,id.length*37); map(el); };
+</script></body></html>
