@@ -107,8 +107,40 @@ header{display:flex;align-items:center;justify-content:space-between;gap:14px;fl
 .meta{display:flex;gap:8px;flex-wrap:wrap}
 .chip{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px;color:var(--muted);backdrop-filter:blur(8px)}
 .chip b{color:var(--text);font-weight:500;font-family:var(--mono);font-size:12.5px;direction:ltr;max-width:min(46vw,300px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.chip i{width:7px;height:7px;border-radius:50%;background:var(--line2)}
+.chip .lbl{white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--line2);flex:none}
+.langrow{display:flex;align-items:center;gap:10px}
+.chip b.open{white-space:normal;word-break:break-all;max-width:none}
+@media(max-width:800px){
+  header{gap:14px}
+  .brand{width:100%}
+  .tools{width:100%;flex-direction:column;align-items:stretch;gap:10px}
+  .meta{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:8px;width:100%}
+  .chip{display:grid;grid-template-columns:auto 1fr;column-gap:6px;row-gap:3px;align-items:center;padding:9px 11px;border-radius:14px;min-width:0}
+  .chip .lbl{font-size:11px;letter-spacing:.03em;text-transform:uppercase}
+  .chip b{grid-column:1/-1;max-width:100%;font-size:12.5px;line-height:1.35;text-align:start}
+  .chip b.open{max-width:100%}
+  .meta:has(b.open){grid-template-columns:1fr}
+  .langrow{justify-content:space-between}
+  .seg{flex:1;justify-content:space-between}.seg button{flex:1;text-align:center}
+}
+@media(max-width:360px){.meta{grid-template-columns:1fr 1fr}.meta .chip:nth-child(2){grid-column:1/-1}}
 .chip.on i{background:var(--good);box-shadow:0 0 8px var(--good)}
+.langRow{display:contents}
+/* phone: one tidy info panel (IP · ISP · server) side by side, controls below */
+@media(max-width:800px){
+  header{gap:12px;margin-bottom:18px}
+  .tools{width:100%;flex-direction:column;align-items:stretch;gap:10px}
+  .meta{display:grid;grid-template-columns:1fr 1.15fr 1.15fr;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(10px);padding:2px;overflow:hidden}
+  .chip{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;align-items:center;column-gap:5px;row-gap:3px;background:transparent;border:0;border-radius:0;padding:9px 10px;min-width:0;backdrop-filter:none}
+  .chip+.chip{border-inline-start:1px solid var(--line)}
+  .chip i{width:6px;height:6px}
+  .chip .lbl{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+  .chip b{grid-column:1/-1;max-width:100%;font-size:12px;font-weight:600;color:var(--text)}
+  .langRow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .seg{flex:1}.seg button{flex:1;text-align:center}
+}
+@media(max-width:380px){.meta{grid-template-columns:1fr 1fr 1fr}.chip{padding:8px 7px}}
 .seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px;backdrop-filter:blur(8px)}
 .seg button{background:transparent;color:var(--muted);box-shadow:none;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;transform:none}
 .seg button.on{background:var(--accent);color:var(--onAccent)}
@@ -337,12 +369,16 @@ footer .copy{font-family:var(--mono);font-size:11.5px;direction:ltr}
   </div>
   <div class="tools">
     <div class="meta">
-      <div class="chip" id="cIp"><i></i>IP <b id="mIp">—</b></div>
-      <div class="chip" id="cIsp"><i></i><span data-i18n="isp"></span> <b id="mIsp">—</b></div>
-      <div class="chip" id="cColo"><i></i><span data-i18n="server"></span> <b id="mColo">—</b></div>
+      <div class="chip" id="cIp"><i></i><span class="lbl">IP</span><b id="mIp">—</b></div>
+      <div class="chip" id="cIsp"><i></i><span class="lbl" data-i18n="isp"></span><b id="mIsp">—</b></div>
+      <div class="chip" id="cColo"><i></i><span class="lbl" data-i18n="server"></span><b id="mColo">—</b></div>
     </div>
-    <div class="seg" id="langSeg"><button data-lang="ar">عربي</button><button data-lang="ku">کوردی</button><button data-lang="en">EN</button></div>
-    <button class="iconBtn" id="themeBtn" aria-label="theme"><svg class="ic sun"><use href="#i-sun"/></svg><svg class="ic moon"><use href="#i-moon"/></svg></button>
+    <div class="langrow">
+    <div class="langRow">
+      <div class="seg" id="langSeg"><button data-lang="ar">عربي</button><button data-lang="ku">کوردی</button><button data-lang="en">EN</button></div>
+      <button class="iconBtn" id="themeBtn" aria-label="theme"><svg class="ic sun"><use href="#i-sun"/></svg><svg class="ic moon"><use href="#i-moon"/></svg></button>
+    </div>
+    </div>
   </div>
 </header>
 
@@ -780,7 +816,7 @@ async function loadMeta(){
     if(j&&j.org){meta.isp=j.org.replace(/^AS\d+\s*/,'');meta.city=j.city||'';meta.lat=+j.latitude||null;meta.lon=+j.longitude||null;}
   }catch(e){}
   lastMeta=meta;
-  $('mIp').textContent=meta.ip; $('cIp').classList.toggle('on',meta.ip!=='—');
+  const ipShow=(meta.ip.includes(':')&&meta.ip.length>18)?meta.ip.split(':').slice(0,2).join(':')+':…:'+meta.ip.split(':').slice(-1)[0]:meta.ip; $('mIp').textContent=ipShow; $('mIp').title=meta.ip; $('cIp').classList.toggle('on',meta.ip!=='—');
   $('mIsp').textContent=meta.isp+(meta.city?' · '+meta.city:''); $('cIsp').classList.toggle('on',meta.isp!=='—');
   $('mColo').textContent=coloName(meta.colo); $('cColo').classList.toggle('on',!!IQ[meta.colo]);
   return meta;
@@ -1256,6 +1292,7 @@ if(inApp||standalone){ $('getApp').hidden=true; }
 $('iosHowBtn').onclick=()=>{ const sh=$('iosSheet'); sh.hidden=!sh.hidden; };
 if(isIOS){ $('iosCard').style.order='-1'; }
 $('yr').textContent=new Date().getFullYear();
+document.querySelectorAll('.chip b').forEach(b=>b.addEventListener('click',()=>{const o=b.classList.contains('open');document.querySelectorAll('.chip b.open').forEach(x=>x.classList.remove('open'));if(!o)b.classList.add('open');}));
 fetch('/app-version.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{ if(j&&j.versionName)$('apkMeta').textContent=t('gaVer',{v:j.versionName}); }).catch(()=>{});
 // store badges appear automatically once the apps are listed (set the URLs in stores.json)
 fetch('/stores.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{ if(!j)return; let any=false; if(j.play){$('storePlay').href=j.play;$('storePlay').hidden=false;any=true;} if(j.appstore){$('storeApp').href=j.appstore;$('storeApp').hidden=false;any=true;} if(any)$('storeRow').hidden=false; }).catch(()=>{});
