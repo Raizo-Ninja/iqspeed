@@ -254,7 +254,10 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;direction:ltr}
 .tableWrap{overflow-x:auto}
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:var(--bg2);border:1px solid var(--line2);padding:10px 18px;border-radius:12px;font-size:14px;opacity:0;transition:.3s var(--ease);pointer-events:none;z-index:9;box-shadow:0 10px 30px -10px rgba(0,0,0,.4)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-footer{margin-top:32px;color:var(--muted);font-size:12.5px;text-align:center}
+footer{margin-top:32px;color:var(--muted);font-size:12.5px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.apk{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:14px;border:1px solid var(--line2);color:var(--text);text-decoration:none;font-weight:600;font-size:14px;background:var(--surface);transition:border-color .2s,transform .15s}
+.apk:hover{border-color:var(--accent);transform:translateY(-1px)}
+.apk svg{color:var(--accentText)}
 @media print{body{background:#fff;color:#000}.card{border-color:#ccc;background:#fff;box-shadow:none}.controls,.actions,#historyCard,footer,#bgc,.aurora,.tools,#splash{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.issue{opacity:1;transform:none}#splash{display:none}}
 </style>
@@ -383,7 +386,7 @@ footer{margin-top:32px;color:var(--muted);font-size:12.5px;text-align:center}
   <div class="actions"><button id="clearHist" class="ghost"><svg class="ic"><use href="#i-trash"/></svg><span data-i18n="clear"></span></button></div>
 </div>
 
-<footer data-i18n="footer"></footer>
+<footer><span data-i18n="footer"></span><a id="apkLink" class="apk" href="/iqspeed.apk" hidden><svg class="ic"><use href="#i-down"/></svg><span data-i18n="getApp"></span></a></footer>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -404,7 +407,7 @@ ar:{dir:'rtl',locale:'ar-IQ',title:'سرعتي',tagline:'IRAQ SPEED TEST',subtit
  ready:'جاهز للقياس. اضغط "ابدأ القياس".',calib:'معايرة…',identify:'جاري التعرف على الاتصال…',pinging:'قياس زمن الاستجابة… {i}/{n}',downloading:'قياس سرعة التحميل… {s} ث',uploading:'قياس سرعة الرفع… {s} ث',done:'اكتمل القياس.',stopped:'تم إيقاف القياس.',
  kPing:'Ping',kDown:'التحميل',kUp:'الرفع',kLoaded:'Ping تحت الضغط',loadedPing:'Ping تحت الضغط',peak:'ذروة التحميل',
  reportTitle:'التقرير التشخيصي',copy:'نسخ التقرير',print:'طباعة / حفظ PDF',again:'إعادة القياس',copied:'تم نسخ التقرير',
- history:'القياسات السابقة',historyNote:'محفوظة على هذا الجهاز',date:'التاريخ',grade:'التقييم',clear:'مسح السجل',
+ getApp:'حمّل تطبيق أندرويد',history:'القياسات السابقة',historyNote:'محفوظة على هذا الجهاز',date:'التاريخ',grade:'التقييم',clear:'مسح السجل',
  footer:'القيم تمثل السرعة الفعلية بين جهازك وأقرب خادم قياس. للحصول على نتيجة دقيقة: أغلق التحميلات والفيديو أثناء الاختبار، وفضّل الكابل على الواي فاي.',
  fixLabel:'الحل المقترح:',score:'النتيجة {s}/100',crit:'{n} مشكلة حرجة',noCrit:'لا مشاكل حرجة',warns:'{n} تنبيه',
  srvOokla:'تلقائي — أسرع وأفضل خادم (speedtest.net + Cloudflare)',picking:'اختيار أفضل خادم من خوادم speedtest.net في العراق…',picked:'الخادم: {s} ({v} ms)',probing:'مقارنة أسرع الخوادم بالسرعة الفعلية…',modeSpeed:'اختبار السرعة',modeGame:'اختبار الألعاب',serverLbl:'الخادم',srvCf:'Cloudflare — أقرب خادم (تلقائي)',srvFast:'Netflix Fast.com — كاش مزود الخدمة',srvCustom:'خادم خاص (LibreSpeed)',
@@ -455,7 +458,7 @@ ku:{dir:'rtl',locale:'ckb-IQ',title:'خێراییم',tagline:'IRAQ SPEED TEST',s
  ready:'ئامادەیە بۆ پێوان. کرتە لە «دەستپێکردنی پێوان» بکە.',calib:'ڕێکخستن…',identify:'ناسینەوەی پەیوەندی…',pinging:'پێوانی کاتی وەڵامدانەوە… {i}/{n}',downloading:'پێوانی خێرایی داگرتن… {s} چرکە',uploading:'پێوانی خێرایی بارکردن… {s} چرکە',done:'پێوان تەواو بوو.',stopped:'پێوان وەستێنرا.',
  kPing:'Ping',kDown:'داگرتن',kUp:'بارکردن',kLoaded:'Ping لەژێر بارە',loadedPing:'Ping لەژێر بارە',peak:'لوتکەی داگرتن',
  reportTitle:'ڕاپۆرتی دەستنیشانکردن',copy:'کۆپیکردنی ڕاپۆرت',print:'چاپکردن / پاشەکەوتی PDF',again:'دووبارە پێوان',copied:'ڕاپۆرت کۆپی کرا',
- history:'پێوانەکانی پێشوو',historyNote:'تەنها لەسەر ئەم ئامێرە پاشەکەوت کراوە',date:'بەروار',grade:'هەڵسەنگاندن',clear:'سڕینەوەی مێژوو',
+ getApp:'ئەپی ئەندرۆید دابگرە',history:'پێوانەکانی پێشوو',historyNote:'تەنها لەسەر ئەم ئامێرە پاشەکەوت کراوە',date:'بەروار',grade:'هەڵسەنگاندن',clear:'سڕینەوەی مێژوو',
  footer:'نرخەکان خێرایی ڕاستەقینەی نێوان ئامێرەکەت و نزیکترین ڕاژەکار نیشان دەدەن. بۆ ئەنجامی وردتر: داگرتن و ڤیدیۆ دابخە لە کاتی تاقیکردنەوەدا، و کێبڵ باشترە لە وایفای.',
  fixLabel:'چارەسەری پێشنیارکراو:',score:'ئەنجام {s}/100',crit:'{n} کێشەی گرنگ',noCrit:'هیچ کێشەیەکی گرنگ نییە',warns:'{n} ئاگاداری',
  srvOokla:'خۆکار — خێراترین و باشترین ڕاژەکار (speedtest.net + Cloudflare)',picking:'هەڵبژاردنی باشترین ڕاژەکار لە ڕاژەکارەکانی speedtest.net لە عێراق…',picked:'ڕاژەکار: {s} ({v} ms)',probing:'بەراوردکردنی خێراترین ڕاژەکارەکان بە خێرایی ڕاستەقینە…',modeSpeed:'تاقیکردنەوەی خێرایی',modeGame:'تاقیکردنەوەی یاری',serverLbl:'ڕاژەکار',srvCf:'Cloudflare — نزیکترین ڕاژەکار (خۆکار)',srvFast:'Netflix Fast.com — کاشی دابینکەر',srvCustom:'ڕاژەکاری تایبەت (LibreSpeed)',
@@ -506,7 +509,7 @@ en:{dir:'ltr',locale:'en-GB',title:'Sur3ati',tagline:'IRAQ SPEED TEST',subtitle:
  ready:'Ready. Press "Start test".',calib:'Calibrating…',identify:'Identifying your connection…',pinging:'Measuring latency… {i}/{n}',downloading:'Measuring download… {s}s',uploading:'Measuring upload… {s}s',done:'Test complete.',stopped:'Test stopped.',
  kPing:'Ping',kDown:'Download',kUp:'Upload',kLoaded:'Ping under load',loadedPing:'Ping under load',peak:'Peak download',
  reportTitle:'Diagnostic report',copy:'Copy report',print:'Print / Save PDF',again:'Run again',copied:'Report copied',
- history:'Previous tests',historyNote:'stored on this device only',date:'Date',grade:'Grade',clear:'Clear history',
+ getApp:'Get the Android app',history:'Previous tests',historyNote:'stored on this device only',date:'Date',grade:'Grade',clear:'Clear history',
  footer:'Values reflect the real speed between your device and the nearest test server. For an accurate result, pause downloads and video during the test and prefer a cable over Wi-Fi.',
  fixLabel:'Suggested fix:',score:'Score {s}/100',crit:'{n} critical issue(s)',noCrit:'no critical issues',warns:'{n} warning(s)',
  srvOokla:'Auto — fastest & best server (speedtest.net + Cloudflare)',picking:'Choosing the best speedtest.net server in Iraq…',picked:'Server: {s} ({v} ms)',probing:'Comparing the fastest servers by real throughput…',modeSpeed:'Speed test',modeGame:'Gaming test',serverLbl:'Server',srvCf:'Cloudflare — nearest server (auto)',srvFast:'Netflix Fast.com — ISP cache',srvCustom:'Custom server (LibreSpeed)',
@@ -1167,7 +1170,7 @@ const go=()=>mode==='game'?runGameTest():runTest();
 $('startBtn').onclick=go;
 $('againBtn').onclick=()=>{window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});go();};
 $('stopBtn').onclick=()=>{running=false;aborter&&aborter.abort();setPhase(t('stopped'));};
-$('copyBtn').onclick=async()=>{if(mode==='game'?!(gameState&&gameState.issues):!(state&&state.issues))return; const tx=mode==='game'?gameReportText(gameState):reportText(state);try{await navigator.clipboard.writeText(tx);}catch(e){const ta=document.createElement('textarea');ta.value=tx;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}toast(t('copied'));};
+$('copyBtn').onclick=async()=>{if(mode==='game'?!(gameState&&gameState.issues):!(state&&state.issues))return; const tx=mode==='game'?gameReportText(gameState):reportText(state);if(window.AndroidBridge&&AndroidBridge.share){AndroidBridge.share(tx);return;}try{await navigator.clipboard.writeText(tx);}catch(e){const ta=document.createElement('textarea');ta.value=tx;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}toast(t('copied'));};
 $('printBtn').onclick=()=>window.print();
 $('clearHist').onclick=()=>{try{localStorage.removeItem(HKEY);}catch(e){}renderHistory();};
 document.querySelectorAll('#langSeg button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
@@ -1180,6 +1183,7 @@ if(savedTheme)applyTheme(savedTheme);
 applyLang(savedLang);
 fillServerSelect();
 try{$('serverSel').value='ookla-auto';const c=localStorage.getItem('sur3ati_custom');if(c)$('customUrl').value=c;$('customUrl').hidden=serverKey()!=='custom';}catch(e){}
+if(!/IQSpeedApp/.test(navigator.userAgent))$('apkLink').hidden=false;
 loadMeta();
 
 /* ================= splash: Iraq connects to the world ================= */
@@ -1204,7 +1208,7 @@ function buildSplash(){
   const skip=document.createElement('div'); skip.className='splashSkip'; skip.textContent='▸'; $('splash').appendChild(skip);
 }
 function endSplash(){ $('splash').classList.add('out'); }
-if(reduced){ endSplash(); } else { buildSplash(); setTimeout(endSplash,3600); $('splash').addEventListener('click',endSplash); }
+if(reduced||/IQSpeedApp/.test(navigator.userAgent)){ endSplash(); } else { buildSplash(); setTimeout(endSplash,3600); $('splash').addEventListener('click',endSplash); }
 })();
 </script>
 </body>

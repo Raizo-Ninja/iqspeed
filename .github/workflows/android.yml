@@ -1,0 +1,67 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [main]
+    paths: ['android/**', '.github/workflows/android.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Decode release keystore (if configured)
+        env:
+          KS_B64: ${{ secrets.IQ_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            echo "IQ_KEYSTORE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+          fi
+
+      - name: Build release APK
+        env:
+          IQ_VERSION_CODE: ${{ github.run_number }}
+          IQ_KEYSTORE_PASSWORD: ${{ secrets.IQ_KEYSTORE_PASSWORD }}
+          IQ_KEY_ALIAS: ${{ secrets.IQ_KEY_ALIAS }}
+          IQ_KEY_PASSWORD: ${{ secrets.IQ_KEY_PASSWORD }}
+        run: |
+          # empty secrets fall back to the bundled test keystore
+          [ -z "$IQ_KEYSTORE_PASSWORD" ] && unset IQ_KEYSTORE_PASSWORD
+          [ -z "$IQ_KEY_ALIAS" ] && unset IQ_KEY_ALIAS
+          [ -z "$IQ_KEY_PASSWORD" ] && unset IQ_KEY_PASSWORD
+          gradle -p android assembleRelease --no-daemon --stacktrace
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: iqspeed-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Publish APK to the website (iqspeed.net/iqspeed.apk)
+        run: |
+          cp android/app/build/outputs/apk/release/app-release.apk iqspeed.apk
+          echo "{\"versionCode\":${{ github.run_number }},\"versionName\":\"1.0.${{ github.run_number }}\",\"sha\":\"${GITHUB_SHA::7}\"}" > app-version.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add iqspeed.apk app-version.json
+          git commit -m "Publish Android APK build ${{ github.run_number }}" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main

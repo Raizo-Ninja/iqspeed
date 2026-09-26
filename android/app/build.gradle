@@ -1,0 +1,44 @@
+plugins { id 'com.android.application' }
+
+def ks = System.getenv("IQ_KEYSTORE") ?: "${rootDir}/keystore/iqspeed-test.jks"
+def ksPass = System.getenv("IQ_KEYSTORE_PASSWORD") ?: "iqspeed-test"
+def ksAlias = System.getenv("IQ_KEY_ALIAS") ?: "iqspeed"
+def ksKeyPass = System.getenv("IQ_KEY_PASSWORD") ?: ksPass
+
+android {
+    namespace 'net.iqspeed.app'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'net.iqspeed.app'
+        minSdk 26
+        targetSdk 35
+        versionCode Integer.parseInt(System.getenv("IQ_VERSION_CODE") ?: "1")
+        versionName "1.0." + (System.getenv("IQ_VERSION_CODE") ?: "1")
+    }
+    signingConfigs {
+        release {
+            storeFile file(ks)
+            storePassword ksPass
+            keyAlias ksAlias
+            keyPassword ksKeyPass
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    buildFeatures { buildConfig true }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.core:core:1.13.1'
+}
