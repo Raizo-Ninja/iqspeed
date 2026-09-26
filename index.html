@@ -307,10 +307,14 @@ a.ga-card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow
 .ga-ios .ga-ic svg{fill:var(--accentText);stroke:none}
 .ga-txt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
 .ga-txt small{font-size:11.5px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;font-weight:500}
-.ga-txt b{font-size:16px;font-weight:700;font-family:var(--mono);direction:ltr;text-align:start}
+.ga-txt b{font-size:16px;font-weight:700;direction:ltr;text-align:start;letter-spacing:.01em}
+.ga-qr .ga-txt b{font-family:var(--mono);font-size:15px}
 .ga-meta{font-size:12.5px;color:var(--muted)}
 .ga-arrow{color:var(--accentText);flex:none;width:22px;height:22px}
-.ga-btn{padding:9px 14px;font-size:13px;border-radius:11px;flex:none}
+button.ga-btn{padding:9px 16px;font-size:13.5px;font-weight:700;border-radius:11px;flex:none;color:var(--accentText);border-color:color-mix(in srgb,var(--accent) 45%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.ga-ios{cursor:pointer}
+.ga-ios.open{border-color:var(--accent)}
+@media(max-width:600px){.ga-card{flex-wrap:wrap}.ga-btn{flex-basis:100%;justify-content:center;margin-top:2px;padding:11px}.ga-txt b{font-size:17px}}
 .ga-qr{gap:16px}
 .qr{width:84px;height:84px;padding:7px;flex:none;border-radius:12px;background:#fff;color:#000;box-sizing:border-box}
 .qr svg{width:100%;height:100%;display:block}
@@ -510,7 +514,7 @@ ar:{dir:'rtl',locale:'ar-IQ',title:'سرعتي',tagline:'IRAQ SPEED TEST',subtit
  ready:'جاهز للقياس. اضغط "ابدأ القياس".',calib:'معايرة…',identify:'جاري التعرف على الاتصال…',pinging:'قياس زمن الاستجابة… {i}/{n}',downloading:'قياس سرعة التحميل… {s} ث',uploading:'قياس سرعة الرفع… {s} ث',done:'اكتمل القياس.',stopped:'تم إيقاف القياس.',
  kPing:'Ping',kDown:'التحميل',kUp:'الرفع',kLoaded:'Ping تحت الضغط',loadedPing:'Ping تحت الضغط',peak:'ذروة التحميل',
  reportTitle:'التقرير التشخيصي',copy:'نسخ التقرير',print:'طباعة / حفظ PDF',again:'إعادة القياس',copied:'تم نسخ التقرير',
- gaTitle:'حمّل تطبيق سرعتي',gaSub:'قياس بلمسة واحدة، تقرير جاهز للمشاركة، ويعمل على أندرويد والآيفون.',gaDirect:'تنزيل مباشر',gaIosKind:'من Safari',gaIosHow:'إضافة إلى الشاشة الرئيسية',gaIosBtn:'كيف؟',gaScan:'امسح الباركود',gaScanSub:'يفتح صفحة التنزيل على هاتفك',gaStep1:'افتح iqspeed.net في متصفح Safari على الآيفون.',gaStep2:'اضغط زر المشاركة (المربع مع السهم) في الأسفل.',gaStep3:'اختر «إضافة إلى الشاشة الرئيسية» ثم «إضافة». سيظهر سرعتي كتطبيق بأيقونته.',gaVer:'الإصدار {v}',history:'القياسات السابقة',historyNote:'محفوظة على هذا الجهاز',date:'التاريخ',grade:'التقييم',clear:'مسح السجل',
+ gaTitle:'حمّل تطبيق سرعتي',gaSub:'قياس بلمسة واحدة، تقرير جاهز للمشاركة، ويعمل على أندرويد والآيفون.',gaDirect:'تنزيل مباشر',gaIosKind:'من Safari',gaIosHow:'إضافة إلى الشاشة الرئيسية',gaIosBtn:'طريقة التثبيت',gaIosClose:'إخفاء',gaScan:'امسح الباركود',gaScanSub:'يفتح صفحة التنزيل على هاتفك',gaStep1:'افتح iqspeed.net في متصفح Safari على الآيفون.',gaStep2:'اضغط زر المشاركة (المربع مع السهم) في الأسفل.',gaStep3:'اختر «إضافة إلى الشاشة الرئيسية» ثم «إضافة». سيظهر سرعتي كتطبيق بأيقونته.',gaVer:'الإصدار {v}',history:'القياسات السابقة',historyNote:'محفوظة على هذا الجهاز',date:'التاريخ',grade:'التقييم',clear:'مسح السجل',
  footer:'القيم تمثل السرعة الفعلية بين جهازك وأقرب خادم قياس. للحصول على نتيجة دقيقة: أغلق التحميلات والفيديو أثناء الاختبار، وفضّل الكابل على الواي فاي.',
  fixLabel:'الحل المقترح:',score:'النتيجة {s}/100',crit:'{n} مشكلة حرجة',noCrit:'لا مشاكل حرجة',warns:'{n} تنبيه',
  srvOokla:'تلقائي — أسرع وأفضل خادم (speedtest.net + Cloudflare)',picking:'اختيار أفضل خادم من خوادم speedtest.net في العراق…',picked:'الخادم: {s} ({v} ms)',probing:'مقارنة أسرع الخوادم بالسرعة الفعلية…',modeSpeed:'اختبار السرعة',modeGame:'اختبار الألعاب',serverLbl:'الخادم',srvCf:'Cloudflare — أقرب خادم (تلقائي)',srvFast:'Netflix Fast.com — كاش مزود الخدمة',srvCustom:'خادم خاص (LibreSpeed)',
@@ -561,7 +565,7 @@ ku:{dir:'rtl',locale:'ckb-IQ',title:'خێراییم',tagline:'IRAQ SPEED TEST',s
  ready:'ئامادەیە بۆ پێوان. کرتە لە «دەستپێکردنی پێوان» بکە.',calib:'ڕێکخستن…',identify:'ناسینەوەی پەیوەندی…',pinging:'پێوانی کاتی وەڵامدانەوە… {i}/{n}',downloading:'پێوانی خێرایی داگرتن… {s} چرکە',uploading:'پێوانی خێرایی بارکردن… {s} چرکە',done:'پێوان تەواو بوو.',stopped:'پێوان وەستێنرا.',
  kPing:'Ping',kDown:'داگرتن',kUp:'بارکردن',kLoaded:'Ping لەژێر بارە',loadedPing:'Ping لەژێر بارە',peak:'لوتکەی داگرتن',
  reportTitle:'ڕاپۆرتی دەستنیشانکردن',copy:'کۆپیکردنی ڕاپۆرت',print:'چاپکردن / پاشەکەوتی PDF',again:'دووبارە پێوان',copied:'ڕاپۆرت کۆپی کرا',
- gaTitle:'ئەپی خێراییم دابگرە',gaSub:'پێوان بە یەک دەستلێدان، ڕاپۆرتی ئامادە بۆ هاوبەشکردن، کار دەکات لەسەر ئەندرۆید و ئایفۆن.',gaDirect:'داگرتنی ڕاستەوخۆ',gaIosKind:'لە Safari',gaIosHow:'زیادکردن بۆ شاشەی سەرەکی',gaIosBtn:'چۆن؟',gaScan:'بارکۆدەکە سکان بکە',gaScanSub:'پەڕەی داگرتن لەسەر مۆبایلەکەت دەکاتەوە',gaStep1:'iqspeed.net لە Safari لەسەر ئایفۆن بکەرەوە.',gaStep2:'دوگمەی هاوبەشکردن (چوارگۆشە لەگەڵ تیر) لە خوارەوە دابگرە.',gaStep3:'«Add to Home Screen» هەڵبژێرە پاشان «Add». خێراییم وەک ئەپ بە ئایکۆنەکەی دەردەکەوێت.',gaVer:'وەشان {v}',history:'پێوانەکانی پێشوو',historyNote:'تەنها لەسەر ئەم ئامێرە پاشەکەوت کراوە',date:'بەروار',grade:'هەڵسەنگاندن',clear:'سڕینەوەی مێژوو',
+ gaTitle:'ئەپی خێراییم دابگرە',gaSub:'پێوان بە یەک دەستلێدان، ڕاپۆرتی ئامادە بۆ هاوبەشکردن، کار دەکات لەسەر ئەندرۆید و ئایفۆن.',gaDirect:'داگرتنی ڕاستەوخۆ',gaIosKind:'لە Safari',gaIosHow:'زیادکردن بۆ شاشەی سەرەکی',gaIosBtn:'شێوازی دامەزراندن',gaIosClose:'شاردنەوە',gaScan:'بارکۆدەکە سکان بکە',gaScanSub:'پەڕەی داگرتن لەسەر مۆبایلەکەت دەکاتەوە',gaStep1:'iqspeed.net لە Safari لەسەر ئایفۆن بکەرەوە.',gaStep2:'دوگمەی هاوبەشکردن (چوارگۆشە لەگەڵ تیر) لە خوارەوە دابگرە.',gaStep3:'«Add to Home Screen» هەڵبژێرە پاشان «Add». خێراییم وەک ئەپ بە ئایکۆنەکەی دەردەکەوێت.',gaVer:'وەشان {v}',history:'پێوانەکانی پێشوو',historyNote:'تەنها لەسەر ئەم ئامێرە پاشەکەوت کراوە',date:'بەروار',grade:'هەڵسەنگاندن',clear:'سڕینەوەی مێژوو',
  footer:'نرخەکان خێرایی ڕاستەقینەی نێوان ئامێرەکەت و نزیکترین ڕاژەکار نیشان دەدەن. بۆ ئەنجامی وردتر: داگرتن و ڤیدیۆ دابخە لە کاتی تاقیکردنەوەدا، و کێبڵ باشترە لە وایفای.',
  fixLabel:'چارەسەری پێشنیارکراو:',score:'ئەنجام {s}/100',crit:'{n} کێشەی گرنگ',noCrit:'هیچ کێشەیەکی گرنگ نییە',warns:'{n} ئاگاداری',
  srvOokla:'خۆکار — خێراترین و باشترین ڕاژەکار (speedtest.net + Cloudflare)',picking:'هەڵبژاردنی باشترین ڕاژەکار لە ڕاژەکارەکانی speedtest.net لە عێراق…',picked:'ڕاژەکار: {s} ({v} ms)',probing:'بەراوردکردنی خێراترین ڕاژەکارەکان بە خێرایی ڕاستەقینە…',modeSpeed:'تاقیکردنەوەی خێرایی',modeGame:'تاقیکردنەوەی یاری',serverLbl:'ڕاژەکار',srvCf:'Cloudflare — نزیکترین ڕاژەکار (خۆکار)',srvFast:'Netflix Fast.com — کاشی دابینکەر',srvCustom:'ڕاژەکاری تایبەت (LibreSpeed)',
@@ -612,7 +616,7 @@ en:{dir:'ltr',locale:'en-GB',title:'Sur3ati',tagline:'IRAQ SPEED TEST',subtitle:
  ready:'Ready. Press "Start test".',calib:'Calibrating…',identify:'Identifying your connection…',pinging:'Measuring latency… {i}/{n}',downloading:'Measuring download… {s}s',uploading:'Measuring upload… {s}s',done:'Test complete.',stopped:'Test stopped.',
  kPing:'Ping',kDown:'Download',kUp:'Upload',kLoaded:'Ping under load',loadedPing:'Ping under load',peak:'Peak download',
  reportTitle:'Diagnostic report',copy:'Copy report',print:'Print / Save PDF',again:'Run again',copied:'Report copied',
- gaTitle:'Get the Sur3ati app',gaSub:'One-tap testing, shareable reports, on Android and iPhone.',gaDirect:'Direct download',gaIosKind:'From Safari',gaIosHow:'Add to Home Screen',gaIosBtn:'How?',gaScan:'Scan the QR code',gaScanSub:'Opens the download page on your phone',gaStep1:'Open iqspeed.net in Safari on your iPhone.',gaStep2:'Tap the Share button (square with an arrow) at the bottom.',gaStep3:'Choose “Add to Home Screen”, then “Add”. Sur3ati appears as an app with its icon.',gaVer:'Version {v}',history:'Previous tests',historyNote:'stored on this device only',date:'Date',grade:'Grade',clear:'Clear history',
+ gaTitle:'Get the Sur3ati app',gaSub:'One-tap testing, shareable reports, on Android and iPhone.',gaDirect:'Direct download',gaIosKind:'From Safari',gaIosHow:'Add to Home Screen',gaIosBtn:'How to install',gaIosClose:'Hide',gaScan:'Scan the QR code',gaScanSub:'Opens the download page on your phone',gaStep1:'Open iqspeed.net in Safari on your iPhone.',gaStep2:'Tap the Share button (square with an arrow) at the bottom.',gaStep3:'Choose “Add to Home Screen”, then “Add”. Sur3ati appears as an app with its icon.',gaVer:'Version {v}',history:'Previous tests',historyNote:'stored on this device only',date:'Date',grade:'Grade',clear:'Clear history',
  footer:'Values reflect the real speed between your device and the nearest test server. For an accurate result, pause downloads and video during the test and prefer a cable over Wi-Fi.',
  fixLabel:'Suggested fix:',score:'Score {s}/100',crit:'{n} critical issue(s)',noCrit:'no critical issues',warns:'{n} warning(s)',
  srvOokla:'Auto — fastest & best server (speedtest.net + Cloudflare)',picking:'Choosing the best speedtest.net server in Iraq…',picked:'Server: {s} ({v} ms)',probing:'Comparing the fastest servers by real throughput…',modeSpeed:'Speed test',modeGame:'Gaming test',serverLbl:'Server',srvCf:'Cloudflare — nearest server (auto)',srvFast:'Netflix Fast.com — ISP cache',srvCustom:'Custom server (LibreSpeed)',
@@ -1289,7 +1293,8 @@ try{$('serverSel').value='ookla-auto';const c=localStorage.getItem('sur3ati_cust
 const UA=navigator.userAgent, inApp=/IQSpeedApp/.test(UA), isIOS=/iPhone|iPad|iPod/.test(UA)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
 if(inApp||standalone){ $('getApp').hidden=true; }
-$('iosHowBtn').onclick=()=>{ const sh=$('iosSheet'); sh.hidden=!sh.hidden; };
+const toggleIos=()=>{ const sh=$('iosSheet'); sh.hidden=!sh.hidden; $('iosCard').classList.toggle('open',!sh.hidden); $('iosHowBtn').querySelector('span').textContent=sh.hidden?t('gaIosBtn'):t('gaIosClose'); };
+$('iosCard').onclick=toggleIos;
 if(isIOS){ $('iosCard').style.order='-1'; }
 $('yr').textContent=new Date().getFullYear();
 document.querySelectorAll('.chip b').forEach(b=>b.addEventListener('click',()=>{const o=b.classList.contains('open');document.querySelectorAll('.chip b.open').forEach(x=>x.classList.remove('open'));if(!o)b.classList.add('open');}));
