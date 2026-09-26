@@ -4,10 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>سرعتي — Sur3ati</title>
-<meta name="description" content="Real internet speed test for Iraq with an automatic diagnostic report">
+<meta name="description" content="سرعتي / Sur3ati — قياس حقيقي لسرعة الإنترنت في العراق عبر خوادم speedtest.net داخل العراق مع تقرير تشخيصي. Real internet speed test for Iraq.">
+<meta name="theme-color" content="#070b16" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#eef2fa" media="(prefers-color-scheme: light)">
+<link rel="canonical" href="https://iqspeed.net/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233ee0ff'/%3E%3Cstop offset='1' stop-color='%237c6cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M35 12 20 38h12l-3 14 15-26H33z' fill='%2306101f'/%3E%3C/svg%3E">
+<meta property="og:title" content="سرعتي — Sur3ati | Iraq Speed Test"><meta property="og:description" content="قياس حقيقي لسرعة الإنترنت في العراق مع تقرير تشخيصي"><meta property="og:url" content="https://iqspeed.net/"><meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="preload" href="fonts/qabas-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/qabas-bold.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face{font-family:"Qabas";src:url(fonts/qabas-light.woff2) format("woff2");font-weight:300;font-style:normal;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F}
+@font-face{font-family:"Qabas";src:url(fonts/qabas-regular.woff2) format("woff2");font-weight:400 500;font-style:normal;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F}
+@font-face{font-family:"Qabas";src:url(fonts/qabas-bold.woff2) format("woff2");font-weight:600 800;font-style:normal;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F}
 :root{
   color-scheme:dark;
   --bg:#070b16;--bg2:#0d1425;--surface:rgba(17,26,46,.72);--inset:rgba(0,0,0,.22);
@@ -17,7 +26,7 @@
   --good:#2fd47a;--warn:#ffb03b;--bad:#ff5d6c;
   --aurora1:rgba(62,224,255,.14);--aurora2:rgba(124,108,255,.16);--aurora3:rgba(62,224,255,.07);
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  --sans:"IBM Plex Sans Arabic","Vazirmatn","IBM Plex Sans","Segoe UI",Tahoma,sans-serif;
+  --sans:"Qabas","IBM Plex Sans","IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
   --ease:cubic-bezier(.22,1,.36,1);
 }
 :root[data-theme="light"]{
@@ -40,8 +49,10 @@
     --aurora1:rgba(10,163,201,.16);--aurora2:rgba(109,93,252,.14);--aurora3:rgba(10,163,201,.08);
   }
 }
-html[lang="ku"]{--sans:"Vazirmatn","IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif}
-html[lang="en"]{--sans:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif}
+html[lang="en"]{--sans:"IBM Plex Sans","Qabas","Segoe UI",Helvetica,Arial,sans-serif}
+html[lang="ar"] body,html[lang="ku"] body{font-size:15.5px;line-height:1.75}
+.hint,footer,.chip,.step,.phase,.splashIn p{font-weight:300}
+html[lang="en"] .hint,html[lang="en"] footer,html[lang="en"] .chip,html[lang="en"] .step,html[lang="en"] .phase{font-weight:400}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
@@ -84,12 +95,12 @@ header{display:flex;align-items:center;justify-content:space-between;gap:14px;fl
 .logo svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .logo::after{content:"";position:absolute;inset:-3px;border-radius:16px;border:1px solid var(--accent);opacity:.35;animation:pulse 3s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.8;transform:scale(1.06)}}
-.brand h1{font-size:21px;margin:0;font-weight:700}
+.brand h1{font-size:23px;margin:0;font-weight:700}
 .brand small{display:block;color:var(--muted);font-size:12.5px;font-weight:400}
 .tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .meta{display:flex;gap:8px;flex-wrap:wrap}
 .chip{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px;color:var(--muted);backdrop-filter:blur(8px)}
-.chip b{color:var(--text);font-weight:500;font-family:var(--mono);font-size:12.5px;direction:ltr}
+.chip b{color:var(--text);font-weight:500;font-family:var(--mono);font-size:12.5px;direction:ltr;max-width:min(46vw,300px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .chip i{width:7px;height:7px;border-radius:50%;background:var(--line2)}
 .chip.on i{background:var(--good);box-shadow:0 0 8px var(--good)}
 .seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px;backdrop-filter:blur(8px)}
@@ -184,11 +195,11 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .modes button{background:transparent;color:var(--muted);box-shadow:none;padding:8px 16px;border-radius:999px;font-size:13.5px;transform:none}
 .modes button.on{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--onAccent)}
 .modes button:hover{transform:none}
-select{font-family:inherit;font-size:13.5px;background:var(--inset);border:1px solid var(--line2);color:var(--text);border-radius:10px;padding:8px 10px;transition:border-color .2s,box-shadow .2s}
+select{max-width:min(100%,calc(100vw - 120px));text-overflow:ellipsis;font-family:inherit;font-size:13.5px;background:var(--inset);border:1px solid var(--line2);color:var(--text);border-radius:10px;padding:8px 10px;transition:border-color .2s,box-shadow .2s}
 select:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px var(--glow)}
 #customUrl{width:min(100%,360px);background:var(--inset);border:1px solid var(--line2);color:var(--text);border-radius:10px;padding:8px 10px;font-family:var(--mono);font-size:13px;direction:ltr}
 #customUrl:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px var(--glow)}
-#serverRow{margin-top:4px}
+#serverRow{margin-top:4px}#serverRow .field{max-width:100%;flex-wrap:wrap;justify-content:center}
 .gameTbl td,.gameTbl th{padding:9px 8px;white-space:nowrap}
 .gameTbl .rg{font-weight:600}.gameTbl .rg small{display:block;font-weight:400;color:var(--muted);font-size:11.5px;white-space:normal;max-width:220px}
 .gameTbl tr.live td{background:color-mix(in srgb,var(--accent) 8%,transparent)}
@@ -389,7 +400,7 @@ const I18N={
 ar:{dir:'rtl',locale:'ar-IQ',title:'سرعتي',tagline:'IRAQ SPEED TEST',subtitle:'قياس حقيقي لسرعة الإنترنت في العراق',isp:'المزود',server:'الخادم',
  download:'التحميل',upload:'الرفع',report:'التقرير',ping:'زمن الاستجابة (Ping)',jitter:'التذبذب (Jitter)',failed:'طلبات فاشلة',of:'من',stability:'استقرار الاتصال',
  start:'ابدأ القياس',stop:'إيقاف',plan:'السرعة المشتركة',results:'النتائج',
- hint:'يتم القياس عبر خوادم Cloudflare التي تملك نقاط حضور داخل العراق (بغداد، أربيل، البصرة، النجف، السليمانية). يظهر رمز الخادم المستخدم في الأعلى.',
+ hint:'يُختار تلقائياً أسرع خادم من خوادم speedtest.net داخل العراق (أربيل، بغداد، السليمانية، البصرة…) وخوادم Cloudflare، ويظهر اسم الخادم المستخدم في الأعلى.',
  ready:'جاهز للقياس. اضغط "ابدأ القياس".',calib:'معايرة…',identify:'جاري التعرف على الاتصال…',pinging:'قياس زمن الاستجابة… {i}/{n}',downloading:'قياس سرعة التحميل… {s} ث',uploading:'قياس سرعة الرفع… {s} ث',done:'اكتمل القياس.',stopped:'تم إيقاف القياس.',
  kPing:'Ping',kDown:'التحميل',kUp:'الرفع',kLoaded:'Ping تحت الضغط',loadedPing:'Ping تحت الضغط',peak:'ذروة التحميل',
  reportTitle:'التقرير التشخيصي',copy:'نسخ التقرير',print:'طباعة / حفظ PDF',again:'إعادة القياس',copied:'تم نسخ التقرير',
@@ -414,7 +425,7 @@ ar:{dir:'rtl',locale:'ar-IQ',title:'سرعتي',tagline:'IRAQ SPEED TEST',subtit
  colos:{BGW:'بغداد',EBL:'أربيل',BSR:'البصرة',NJF:'النجف',ISU:'السليمانية',AMM:'عمّان',IST:'إسطنبول',DXB:'دبي',DOH:'الدوحة',KWI:'الكويت',BAH:'المنامة',FRA:'فرانكفورت',MRS:'مرسيليا',LHR:'لندن',AMS:'أمستردام',CDG:'باريس',BEY:'بيروت',RUH:'الرياض',JED:'جدة',MCT:'مسقط',TBS:'تبليسي',IKA:'طهران'},
  txt:{head:'تقرير قياس سرعة الإنترنت — سرعتي',date:'التاريخ',peak:'ذروة',loaded:'Ping أثناء التحميل',fails:'طلبات فاشلة',stab:'الاستقرار',plan:'الباقة المشتركة',grade:'التقييم',bad:'[مشكلة]',warn:'[تنبيه]',ok:'[سليم]',fix:'الحل'},
  issues:{
-  noServer:['تعذر الوصول إلى خادم القياس','لم تنجح أي محاولة اتصال بخادم القياس.','تأكد من أن الإنترنت يعمل، وأن جدار الحماية أو الـ VPN لا يحجب speed.cloudflare.com.'],
+  noServer:['تعذر الوصول إلى خادم القياس','لم تنجح أي محاولة اتصال بخادم القياس.','تأكد من أن الإنترنت يعمل، وأن جدار الحماية أو الـ VPN لا يحجب خوادم القياس.'],
   pingBad:['زمن استجابة مرتفع جداً ({v} ms)','هذا يؤثر بوضوح على المكالمات المرئية والألعاب والتصفح، ويشير غالباً إلى مسار دولي طويل أو ازدحام لدى المزود.','جرّب الاتصال بالكابل بدل الواي فاي، وأعد تشغيل الراوتر. إن استمرت المشكلة فأبلغ مزود الخدمة بأن الـ Ping إلى أقرب خادم Cloudflare يتجاوز 150ms.'],
   pingWarn:['زمن استجابة أعلى من المعتاد ({v} ms)','مقبول للتصفح والمشاهدة، لكنه قد يسبب تأخيراً في الألعاب والمكالمات.','استخدم كابل شبكة إن أمكن، وأغلق التطبيقات التي تستهلك الاتصال في الخلفية.'],
   pingOk:['زمن الاستجابة ممتاز ({v} ms)','الاتصال بأقرب خادم سريع ومناسب لكل الاستخدامات بما فيها الألعاب والمكالمات.',''],
@@ -440,7 +451,7 @@ ar:{dir:'rtl',locale:'ar-IQ',title:'سرعتي',tagline:'IRAQ SPEED TEST',subtit
 ku:{dir:'rtl',locale:'ckb-IQ',title:'خێراییم',tagline:'IRAQ SPEED TEST',subtitle:'پێوانی ڕاستەقینەی خێرایی ئینتەرنێت لە عێراق',isp:'دابینکەر',server:'ڕاژەکار',
  download:'داگرتن',upload:'بارکردن',report:'ڕاپۆرت',ping:'کاتی وەڵامدانەوە (Ping)',jitter:'لەرزین (Jitter)',failed:'داواکاری شکستخواردوو',of:'لە',stability:'جێگیری پەیوەندی',
  start:'دەستپێکردنی پێوان',stop:'وەستاندن',plan:'خێرایی بەشداری',results:'ئەنجامەکان',
- hint:'پێوان لە ڕێگەی ڕاژەکارەکانی Cloudflare دەکرێت کە خاڵی ئامادەبوونیان لە ناو عێراقدا هەیە (بەغدا، هەولێر، بەسرە، نەجەف، سلێمانی). کۆدی ڕاژەکاری بەکارهاتوو لە سەرەوە دەردەکەوێت.',
+ hint:'خێراترین ڕاژەکار بە شێوەی خۆکار لە ڕاژەکارەکانی speedtest.net لە ناو عێراق (هەولێر، بەغدا، سلێمانی، بەسرە…) و ڕاژەکارەکانی Cloudflare هەڵدەبژێردرێت، و ناوی ڕاژەکاری بەکارهاتوو لە سەرەوە دەردەکەوێت.',
  ready:'ئامادەیە بۆ پێوان. کرتە لە «دەستپێکردنی پێوان» بکە.',calib:'ڕێکخستن…',identify:'ناسینەوەی پەیوەندی…',pinging:'پێوانی کاتی وەڵامدانەوە… {i}/{n}',downloading:'پێوانی خێرایی داگرتن… {s} چرکە',uploading:'پێوانی خێرایی بارکردن… {s} چرکە',done:'پێوان تەواو بوو.',stopped:'پێوان وەستێنرا.',
  kPing:'Ping',kDown:'داگرتن',kUp:'بارکردن',kLoaded:'Ping لەژێر بارە',loadedPing:'Ping لەژێر بارە',peak:'لوتکەی داگرتن',
  reportTitle:'ڕاپۆرتی دەستنیشانکردن',copy:'کۆپیکردنی ڕاپۆرت',print:'چاپکردن / پاشەکەوتی PDF',again:'دووبارە پێوان',copied:'ڕاپۆرت کۆپی کرا',
@@ -465,7 +476,7 @@ ku:{dir:'rtl',locale:'ckb-IQ',title:'خێراییم',tagline:'IRAQ SPEED TEST',s
  colos:{BGW:'بەغدا',EBL:'هەولێر',BSR:'بەسرە',NJF:'نەجەف',ISU:'سلێمانی',AMM:'عەممان',IST:'ئەستەنبوڵ',DXB:'دوبەی',DOH:'دەوحە',KWI:'کوەیت',BAH:'مەنامە',FRA:'فرانکفۆرت',MRS:'مارسێی',LHR:'لەندەن',AMS:'ئامستردام',CDG:'پاریس',BEY:'بەیروت',RUH:'ڕیاز',JED:'جددە',MCT:'مەسقەت',TBS:'تبلیسی',IKA:'تاران'},
  txt:{head:'ڕاپۆرتی پێوانی خێرایی ئینتەرنێت — خێراییم',date:'بەروار',peak:'لوتکە',loaded:'Ping لە کاتی داگرتن',fails:'داواکاری شکستخواردوو',stab:'جێگیری',plan:'پاکێجی بەشداری',grade:'هەڵسەنگاندن',bad:'[کێشە]',warn:'[ئاگاداری]',ok:'[باش]',fix:'چارەسەر'},
  issues:{
-  noServer:['ناتوانرێت بگات بە ڕاژەکاری پێوان','هیچ هەوڵێکی پەیوەندی بە ڕاژەکاری پێوان سەرکەوتوو نەبوو.','دڵنیابە ئینتەرنێت کار دەکات، و فایەرواڵ یان VPN ڕێگری لە speed.cloudflare.com ناکات.'],
+  noServer:['ناتوانرێت بگات بە ڕاژەکاری پێوان','هیچ هەوڵێکی پەیوەندی بە ڕاژەکاری پێوان سەرکەوتوو نەبوو.','دڵنیابە ئینتەرنێت کار دەکات، و فایەرواڵ یان VPN ڕێگری لە ڕاژەکارەکانی پێوان ناکات.'],
   pingBad:['کاتی وەڵامدانەوە زۆر بەرزە ({v} ms)','ئەمە بە ڕوونی کاریگەری لەسەر پەیوەندی ڤیدیۆیی و یاری و گەڕان دەکات، و زۆربەی جار ئاماژەیە بۆ ڕێڕەوێکی درێژی نێودەوڵەتی یان قەرەباڵغی لای دابینکەر.','هەوڵبدە بە کێبڵ لە جیاتی وایفای پەیوەندی بکەیت و ڕاوتەرەکە دووبارە دابگیرسێنە. ئەگەر کێشەکە مایەوە، دابینکەر ئاگادار بکەرەوە کە Ping بۆ نزیکترین ڕاژەکاری Cloudflare لە 150ms زیاترە.'],
   pingWarn:['کاتی وەڵامدانەوە لە ئاسایی بەرزترە ({v} ms)','بۆ گەڕان و سەیرکردن قبوڵکراوە، بەڵام لەوانەیە دواکەوتن لە یاری و پەیوەندیدا دروست بکات.','ئەگەر دەکرێت کێبڵی تۆڕ بەکاربهێنە، و ئەو ئەپانە دابخە کە لە پشتەوە پەیوەندی بەکاردەهێنن.'],
   pingOk:['کاتی وەڵامدانەوە نایابە ({v} ms)','پەیوەندی بە نزیکترین ڕاژەکار خێرایە و گونجاوە بۆ هەموو بەکارهێنانێک بە یاری و پەیوەندییەوە.',''],
@@ -491,7 +502,7 @@ ku:{dir:'rtl',locale:'ckb-IQ',title:'خێراییم',tagline:'IRAQ SPEED TEST',s
 en:{dir:'ltr',locale:'en-GB',title:'Sur3ati',tagline:'IRAQ SPEED TEST',subtitle:'Real internet speed test for Iraq',isp:'ISP',server:'Server',
  download:'Download',upload:'Upload',report:'Report',ping:'Latency (Ping)',jitter:'Jitter',failed:'Failed requests',of:'of',stability:'Connection stability',
  start:'Start test',stop:'Stop',plan:'Plan speed',results:'Results',
- hint:'Measured against Cloudflare servers, which have points of presence inside Iraq (Baghdad, Erbil, Basra, Najaf, Sulaymaniyah). The server used is shown at the top.',
+ hint:'The fastest server is chosen automatically among speedtest.net servers inside Iraq (Erbil, Baghdad, Sulaymaniyah, Basra…) and Cloudflare; the server used is shown at the top.',
  ready:'Ready. Press "Start test".',calib:'Calibrating…',identify:'Identifying your connection…',pinging:'Measuring latency… {i}/{n}',downloading:'Measuring download… {s}s',uploading:'Measuring upload… {s}s',done:'Test complete.',stopped:'Test stopped.',
  kPing:'Ping',kDown:'Download',kUp:'Upload',kLoaded:'Ping under load',loadedPing:'Ping under load',peak:'Peak download',
  reportTitle:'Diagnostic report',copy:'Copy report',print:'Print / Save PDF',again:'Run again',copied:'Report copied',
@@ -516,7 +527,7 @@ en:{dir:'ltr',locale:'en-GB',title:'Sur3ati',tagline:'IRAQ SPEED TEST',subtitle:
  colos:{BGW:'Baghdad',EBL:'Erbil',BSR:'Basra',NJF:'Najaf',ISU:'Sulaymaniyah',AMM:'Amman',IST:'Istanbul',DXB:'Dubai',DOH:'Doha',KWI:'Kuwait',BAH:'Manama',FRA:'Frankfurt',MRS:'Marseille',LHR:'London',AMS:'Amsterdam',CDG:'Paris',BEY:'Beirut',RUH:'Riyadh',JED:'Jeddah',MCT:'Muscat',TBS:'Tbilisi',IKA:'Tehran'},
  txt:{head:'Internet speed test report — Sur3ati',date:'Date',peak:'peak',loaded:'Ping under load',fails:'Failed requests',stab:'Stability',plan:'Subscribed plan',grade:'Grade',bad:'[ISSUE]',warn:'[WARNING]',ok:'[OK]',fix:'Fix'},
  issues:{
-  noServer:['Could not reach the test server','No connection attempt to the test server succeeded.','Check that the internet works and that a firewall or VPN is not blocking speed.cloudflare.com.'],
+  noServer:['Could not reach the test server','No connection attempt to the test server succeeded.','Check that the internet works and that a firewall or VPN is not blocking the test servers.'],
   pingBad:['Very high latency ({v} ms)','This clearly affects video calls, gaming and browsing, and usually points to a long international route or congestion at the ISP.','Try a cable instead of Wi-Fi and restart the router. If it persists, tell your ISP that ping to the nearest Cloudflare server exceeds 150 ms.'],
   pingWarn:['Latency higher than usual ({v} ms)','Fine for browsing and streaming, but may add lag to games and calls.','Use a network cable if possible and close background apps that use the connection.'],
   pingOk:['Excellent latency ({v} ms)','The link to the nearest server is fast and suitable for everything, including gaming and calls.',''],
@@ -772,19 +783,21 @@ async function pickOokla(){
   const lat=lastMeta&&lastMeta.lat, lon=lastMeta&&lastMeta.lon;
   const dist=o=>(lat==null)?0:Math.hypot(o.la-lat,(o.lo-lon)*Math.cos(lat*Math.PI/180));
   const cand=[...OOKLA].sort((a,b)=>dist(a)-dist(b));
-  const first=await pool(cand,6,o=>ooklaPing(o,4000));                 // warm-up (DNS + TLS), 6 at a time
+  // fast path: if last winning server still answers in <= 12 ms, nothing can beat it meaningfully
+  try{ const lid=localStorage.getItem('sur3ati_last_srv'); const lo=lid&&OOKLA.find(x=>String(x.id)===lid); if(lo){ await ooklaPing(lo,2500); const a=[]; for(let k=0;k<3;k++){const m=await ooklaPing(lo,2500); if(m!=null)a.push(m);} if(a.length===3&&median(a)<=12){ const pv=ooklaProvider(lo); return {o:lo,ms:median(a),pv}; } } }catch(e){}
+  const first=await pool(cand,8,o=>ooklaPing(o,2500));                 // warm-up (DNS + TLS), 8 at a time, 2.5 s cap
   const alive=cand.filter((o,i)=>first[i]!=null);
   // Cloudflare's nearest edge joins the race as one more candidate
   const cfp=await PROVIDERS.cf.init(); const cfPing=async()=>{ const t0=performance.now(); try{ await fetch(cfp.ping(),{cache:'no-store'}); return performance.now()-t0; }catch(e){ return null; } };
   await cfPing();
   const meds=await pool(alive,3,async o=>{ const a=[]; for(let k=0;k<3;k++){ const m=await ooklaPing(o,3000); if(m!=null)a.push(m); } return a.length?median(a):null; }); // 3 sequential probes per server
   const list=alive.map((o,i)=>({pv:ooklaProvider(o),ms:meds[i]})).filter(x=>x.ms!=null);
-  { const a=[]; for(let k=0;k<3;k++){ const m=await cfPing(); if(m!=null)a.push(m); } if(a.length){ cfp.name='Cloudflare — '+coloName(lastMeta&&lastMeta.colo); cfp.ookla={sp:'Cloudflare',c:''}; list.push({pv:cfp,ms:median(a)}); } }
+  { const a=[]; for(let k=0;k<3;k++){ const m=await cfPing(); if(m!=null)a.push(m); } if(a.length){ cfp.name='Cloudflare — '+coloName(lastMeta&&lastMeta.colo); cfp.isCf=true; list.push({pv:cfp,ms:median(a)}); } }
   if(!list.length) throw new Error('no ookla');
   list.sort((a,b)=>a.ms-b.ms);
   const bestMs=list[0].ms; const top=list.filter(x=>x.ms<=Math.max(bestMs*2,bestMs+25)).slice(0,3);   // latency finalists
   if(top.length>1){ setPhase(t('probing')); for(const x of top){ x.mbps=await probeThroughput(x.pv,1600); } top.sort((a,b)=>(b.mbps-a.mbps)||(a.ms-b.ms)); }
-  const w=top[0]; return {o:w.pv.ookla,ms:w.ms,pv:w.pv};
+  const w=top[0]; try{ if(w.pv.ookla)localStorage.setItem('sur3ati_last_srv',String(w.pv.ookla.id)); }catch(e){} return {o:w.pv.ookla||null,ms:w.ms,pv:w.pv};
 }
 function fillServerSelect(){
   const sel=$('serverSel'); const cur=sel.value;
@@ -817,7 +830,7 @@ $('serverSel').onchange=()=>{ $('customUrl').hidden=serverKey()!=='custom'; try{
 $('customUrl').onchange=e=>{try{localStorage.setItem('sur3ati_custom',e.target.value);}catch(err){}};
 
 /* ================= measurements (adaptive, Ookla/Cloudflare-style) ================= */
-async function probeOnce(url,signal){ const t0=performance.now(); const r=await fetch(url,{cache:'no-store',signal,headers:srv.tiny?{Range:'bytes=0-0'}:{}}); if(srv.tiny&&r.body){const rd=r.body.getReader();await rd.read();rd.cancel().catch(()=>{});} return performance.now()-t0; }
+async function probeOnce(url,signal){ const t0=performance.now(); const r=await fetch(url,{cache:'no-store',signal}); if(srv.tiny&&r.body){const rd=r.body.getReader();await rd.read();rd.cancel().catch(()=>{});} return performance.now()-t0; }
 function stats(arr){ if(!arr.length)return {median:null,min:null,p95:null,jitter:0}; const s=[...arr].sort((a,b)=>a-b); const q=f=>s[Math.min(s.length-1,Math.floor(f*(s.length-1)))]; const jit=arr.length>1?mean(arr.slice(1).map((v,i)=>Math.abs(v-arr[i]))):0; return {median:median(arr),min:s[0],p95:q(.95),jitter:jit}; }
 async function measurePing(n,stepNo){
   const rtts=[]; let fails=0; const total=n+2; // 2 warm-up probes discarded
@@ -834,7 +847,7 @@ async function measurePing(n,stepNo){
 // stability = 1 - CV of 1-second bins (bursty 250 ms samples are not judged individually)
 function estimate(samples,rampFrac){ const body=samples.slice(Math.floor(samples.length*rampFrac)); if(!body.length)return {avg:0,cv:0};
   const avg=mean(body); const bins=[]; for(let i=0;i<body.length;i+=4){ bins.push(mean(body.slice(i,i+4))); }
-  const cv=bins.length>2?Math.sqrt(mean(bins.map(x=>(x-avg)**2)))/(avg||1):0; return {avg,cv}; }
+  const cv=bins.length>2?Math.sqrt(mean(bins.map(x=>(x-avg)**2)))/(avg||1):0; return {avg,cv,peak:bins.length?Math.max(...bins):avg}; }
 function loadedProbe(list,intervalMs){ let stop=false; (async()=>{ while(!stop&&running){ try{ list.push(await probeOnce(srv.ping(),aborter.signal)); }catch(e){} await sleep(intervalMs); } })(); return ()=>{stop=true;}; }
 async function measureDownload(seconds){
   const start=performance.now(); let bytes=0, fails=0, reqs=0, active=0, maxWorkers=2; const samples=[], loaded=[]; let lastT=start,lastB=0, lastCheckSpeed=0;
@@ -869,7 +882,7 @@ async function measureDownload(seconds){
   await sleep(50); clearInterval(ticker); clearInterval(ramp); stopProbe();
   await Promise.race([Promise.all(pool),sleep(800)]);
   const est=estimate(samples,0.25); const lst=stats(loaded);
-  return {mbps:est.avg,peak:Math.max(0,...samples),samples,cv:est.cv,fails,reqs,bytes,streams:maxWorkers,loaded:lst.median,loadedP95:lst.p95};
+  return {mbps:est.avg,peak:est.peak,samples,cv:est.cv,fails,reqs,bytes,streams:maxWorkers,loaded:lst.median,loadedP95:lst.p95};
 }
 function makeBlob(size){ const a=new Uint8Array(size); for(let i=0;i<size;i+=65536){ crypto.getRandomValues(a.subarray(i,Math.min(i+65536,size))); } return new Blob([a]); }
 async function measureUpload(seconds){
@@ -902,7 +915,7 @@ async function measureUpload(seconds){
   clearInterval(ticker); clearInterval(ramp); stopProbe(); xhrs.forEach(x=>x.abort());
   await Promise.race([Promise.all(pool),sleep(500)]);
   const est=estimate(samples,0.25); const lst=stats(loaded);
-  return {mbps:est.avg,peak:Math.max(0,...samples),samples,cv:est.cv,fails,reqs,streams:maxWorkers,loaded:lst.median,loadedP95:lst.p95};
+  return {mbps:est.avg,peak:est.peak,samples,cv:est.cv,fails,reqs,streams:maxWorkers,loaded:lst.median,loadedP95:lst.p95};
 }
 const cls=(v,goodMax,warnMax,invert)=>{ if(v==null)return ''; if(invert) return v>=goodMax?'good':v>=warnMax?'warn':'bad'; return v<=goodMax?'good':v<=warnMax?'warn':'bad'; };
 
@@ -918,7 +931,7 @@ async function runTest(){
   setPhase(t('identify'));
   const meta=await loadMeta();
   if(!running){finish();return;}
-  try{ srv=await providerFor(serverKey()).init(); if(srv.ookla){ $('mColo').textContent=srv.name; $('cColo').classList.add('on'); setPhase(t('picked',{s:srv.name,v:Math.round(srv.pickedMs)})); await sleep(700); } }
+  try{ srv=await providerFor(serverKey()).init(); if(srv.name){ $('mColo').textContent=srv.name; $('cColo').classList.toggle('on',!!srv.ookla||!!IQ[meta.colo]); setPhase(t('picked',{s:srv.name,v:Math.round(srv.pickedMs)})); await sleep(700); } }
   catch(e){ setPhase(serverKey()==='custom'&&!$('customUrl').value?t('customNeed'):t('srvFail')); toast(t('srvFail')); finish(); step(0); return; }
   setKind('i-ping',t('kPing'),'ms'); live('sPing',true); live('sJit',true); setFlow(0,'idle');
   const p=await measurePing(16,1);
@@ -942,7 +955,7 @@ async function runTest(){
   setStat('sLoss',fails,fails===0?'good':fails<=2?'warn':'bad',0); $('lossTotal').textContent=total;
   setStat('sStab',stab,cls(stab,80,60,true),0);
   setKind('i-down',t('kDown')); setGauge(d.mbps);
-  state={at:startedAt,meta,ping:p,pingLoaded:{ping:loadedMax||null,down:d.loaded,up:u.loaded},bloat,down:d,up:u,fails,total,stab,plan:parseFloat($('planSpeed').value)||null,stopped:!running,server:serverKey(),srvName:srv.ookla?srv.name:null};
+  state={at:startedAt,meta,ping:p,pingLoaded:{ping:loadedMax||null,down:d.loaded,up:u.loaded},bloat,down:d,up:u,fails,total,stab,plan:parseFloat($('planSpeed').value)||null,stopped:!running,server:serverKey(),srvName:srv.ookla?srv.name:null,srvLabel:srv.name||null};
   setPhase(running?t('done'):t('stopped'));
   if(running){ step(5); buildReport(state); saveHistory(state); pulse(); }
   finish();
@@ -964,7 +977,7 @@ const CITIES={Baghdad:[44.4,33.3],Erbil:[44.0,36.2],Basra:[47.8,30.5],Mosul:[43.
 const CITY_N={Baghdad:{ar:'بغداد',ku:'بەغدا',en:'Baghdad'},Erbil:{ar:'أربيل',ku:'هەولێر',en:'Erbil'},Basra:{ar:'البصرة',ku:'بەسرە',en:'Basra'},Mosul:{ar:'الموصل',ku:'مووسڵ',en:'Mosul'},Sulaymaniyah:{ar:'السليمانية',ku:'سلێمانی',en:'Sulaymaniyah'},Najaf:{ar:'النجف',ku:'نەجەف',en:'Najaf'},Kirkuk:{ar:'كركوك',ku:'کەرکووک',en:'Kirkuk'},Duhok:{ar:'دهوك',ku:'دهۆک',en:'Duhok'},Karbala:{ar:'كربلاء',ku:'کەربەلا',en:'Karbala'},Nasiriyah:{ar:'الناصرية',ku:'ناسریە',en:'Nasiriyah'},Ramadi:{ar:'الرمادي',ku:'ڕەمادی',en:'Ramadi'}};
 const IRAQ=[[42.36,37.11],[42.8,37.38],[43.5,37.25],[44.2,37.3],[44.8,37.17],[45.0,36.75],[45.4,36.0],[45.7,35.8],[46.1,35.35],[46.2,35.05],[45.9,34.8],[45.5,34.6],[45.4,33.98],[45.9,33.6],[46.1,33.0],[46.5,32.7],[47.1,32.4],[47.5,31.8],[47.8,31.0],[47.7,30.4],[48.0,30.0],[48.6,29.9],[48.0,29.9],[47.7,30.1],[47.1,30.0],[46.5,29.1],[44.7,29.2],[42.9,30.5],[42.1,31.1],[40.4,31.95],[39.2,32.15],[39.1,32.4],[38.8,33.37],[40.0,34.0],[41.0,34.4],[41.2,35.1],[41.3,35.6],[41.4,36.5],[42.0,36.9]];
 const geo=(lon,lat)=>[200+(lon-43.7)*13, 172-(lat-33.3)*15];
-function srcCity(){ const c=(lastMeta&&lastMeta.city)||''; for(const k in CITIES){ if(c.toLowerCase().indexOf(k.toLowerCase().slice(0,4))===0) return k; } return 'Baghdad'; }
+function srcCity(){ if(lastMeta&&lastMeta.lat!=null&&lastMeta.lon!=null){ let best='Baghdad',bd=1e9; for(const k in CITIES){ const d=Math.hypot(CITIES[k][1]-lastMeta.lat,(CITIES[k][0]-lastMeta.lon)*0.83); if(d<bd){bd=d;best=k;} } if(bd<1.2) return best; } const c=((lastMeta&&lastMeta.city)||'').toLowerCase(); const AL={erbil:'Erbil',arbil:'Erbil',hewler:'Erbil',hawler:'Erbil',sulay:'Sulaymaniyah',slemani:'Sulaymaniyah',mosul:'Mosul',basra:'Basra',bagh:'Baghdad',najaf:'Najaf',kirkuk:'Kirkuk',duhok:'Duhok',dohuk:'Duhok',karbala:'Karbala',nasiriyah:'Nasiriyah',ramadi:'Ramadi'}; for(const k in AL){ if(c.includes(k)) return AL[k]; } return 'Baghdad'; }
 function arcPath(x1,y1,x2,y2){ const mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1,d=Math.hypot(dx,dy)||1; const cx=mx-dy/d*d*0.22, cy=my+dx/d*d*0.22; return 'M'+x1+' '+y1+' Q'+cx+' '+cy+' '+x2+' '+y2; }
 function buildMap(){
   const city=srcCity(); const [sx,sy]=geo(...CITIES[city]);
@@ -1126,7 +1139,7 @@ function buildReport(s,silent){
 function reportText(s){
   const X=T().txt, L=[];
   L.push(X.head); L.push(X.date+': '+fmtDate(s.at));
-  L.push('IP: '+s.meta.ip+' | '+t('isp')+': '+s.meta.isp+' | '+t('server')+': '+(s.srvName||coloName(s.meta.colo))); L.push('');
+  L.push('IP: '+s.meta.ip+' | '+t('isp')+': '+s.meta.isp+' | '+t('server')+': '+(s.srvLabel||s.srvName||coloName(s.meta.colo))); L.push('');
   L.push(t('download')+': '+s.down.mbps.toFixed(1)+' Mbps ('+X.peak+' '+s.down.peak.toFixed(1)+')');
   L.push(t('upload')+': '+s.up.mbps.toFixed(1)+' Mbps');
   L.push('Ping: '+(s.ping.ping==null?'—':Math.round(s.ping.ping))+' ms | Jitter: '+Math.round(s.ping.jitter)+' ms | '+X.loaded+': '+(s.pingLoaded.ping==null?'—':Math.round(s.pingLoaded.ping))+' ms');
@@ -1141,7 +1154,7 @@ function reportText(s){
 const HKEY='sur3ati_history';
 function loadHistory(){ try{return JSON.parse(localStorage.getItem(HKEY)||'[]');}catch(e){return [];} }
 function saveHistory(s){
-  const h=loadHistory(); h.unshift({at:s.at.toISOString(),dn:s.down.mbps,up:s.up.mbps,ping:s.ping.ping,jit:s.ping.jitter,colo:s.meta.colo,srv:s.srvName||null,grade:s.grade});
+  const h=loadHistory(); h.unshift({at:s.at.toISOString(),dn:s.down.mbps,up:s.up.mbps,ping:s.ping.ping,jit:s.ping.jitter,colo:s.meta.colo,srv:s.srvLabel||s.srvName||null,grade:s.grade});
   try{localStorage.setItem(HKEY,JSON.stringify(h.slice(0,15)));}catch(e){} renderHistory();
 }
 function renderHistory(){
@@ -1154,7 +1167,7 @@ const go=()=>mode==='game'?runGameTest():runTest();
 $('startBtn').onclick=go;
 $('againBtn').onclick=()=>{window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});go();};
 $('stopBtn').onclick=()=>{running=false;aborter&&aborter.abort();setPhase(t('stopped'));};
-$('copyBtn').onclick=async()=>{const tx=mode==='game'?gameReportText(gameState):reportText(state);try{await navigator.clipboard.writeText(tx);}catch(e){const ta=document.createElement('textarea');ta.value=tx;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}toast(t('copied'));};
+$('copyBtn').onclick=async()=>{if(mode==='game'?!(gameState&&gameState.issues):!(state&&state.issues))return; const tx=mode==='game'?gameReportText(gameState):reportText(state);try{await navigator.clipboard.writeText(tx);}catch(e){const ta=document.createElement('textarea');ta.value=tx;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}toast(t('copied'));};
 $('printBtn').onclick=()=>window.print();
 $('clearHist').onclick=()=>{try{localStorage.removeItem(HKEY);}catch(e){}renderHistory();};
 document.querySelectorAll('#langSeg button').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));
