@@ -762,16 +762,17 @@ const cityL=c=>(CITY_L[c]&&CITY_L[c][lang])||c;
 function ooklaProvider(o){ const b='https://'+o.h+'/speedtest/'; const sz=n=>n<=2.5e6?1000:n<=9e6?2000:n<=2e7?3000:4000;
   return {name:o.sp+' — '+cityL(o.c),ookla:o,ping:()=>b+'latency.txt?r='+Math.random(),down:n=>b+'random'+sz(n)+'x'+sz(n)+'.jpg?r='+Math.random(),up:()=>b+'upload.php?r='+Math.random(),tiny:false}; }
 async function ooklaPing(o,timeout){ const ac=new AbortController(); const tm=setTimeout(()=>ac.abort(),timeout); const t0=performance.now(); try{ const r=await fetch('https://'+o.h+'/speedtest/latency.txt?r='+Math.random(),{cache:'no-store',signal:ac.signal}); await r.text(); return performance.now()-t0; }catch(e){ return null; } finally{ clearTimeout(tm); } }
+async function pool(items,limit,fn){ const out=new Array(items.length); let i=0; async function w(){ while(i<items.length){ const k=i++; out[k]=await fn(items[k],k); } } await Promise.all(Array.from({length:Math.min(limit,items.length)},w)); return out; }
 async function pickOokla(){
   setPhase(t('picking'));
   const lat=lastMeta&&lastMeta.lat, lon=lastMeta&&lastMeta.lon;
   const dist=o=>(lat==null)?0:Math.hypot(o.la-lat,(o.lo-lon)*Math.cos(lat*Math.PI/180));
   const cand=[...OOKLA].sort((a,b)=>dist(a)-dist(b));
-  const first=await Promise.all(cand.map(o=>ooklaPing(o,4000)));       // warm-up (DNS + TLS)
+  const first=await pool(cand,6,o=>ooklaPing(o,4000));                 // warm-up (DNS + TLS), 6 at a time
   const alive=cand.filter((o,i)=>first[i]!=null);
   if(!alive.length) throw new Error('no ookla');
-  const second=await Promise.all(alive.map(o=>ooklaPing(o,3000)));      // real RTT
-  let best=null,bestMs=1e9; alive.forEach((o,i)=>{ const ms=second[i]==null?first[i]:Math.min(second[i],first[i]); if(ms!=null&&ms<bestMs){bestMs=ms;best=o;} });
+  const meds=await pool(alive,3,async o=>{ const a=[]; for(let k=0;k<3;k++){ const m=await ooklaPing(o,3000); if(m!=null)a.push(m); } return a.length?median(a):null; }); // 3 sequential probes per server
+  let best=null,bestMs=1e9; alive.forEach((o,i)=>{ const ms=meds[i]; if(ms!=null&&ms<bestMs){bestMs=ms;best=o;} });
   return {o:best,ms:bestMs};
 }
 function fillServerSelect(){
