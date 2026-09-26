@@ -1,0 +1,51 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:"Qabas";src:url(fonts/qabas-bold.woff2) format("woff2");font-weight:700}
+@font-face{font-family:"Qabas";src:url(fonts/qabas-regular.woff2) format("woff2");font-weight:400}
+:root{--accent:#3ee0ff;--accent2:#7c6cff;--ink:#06101f;--muted:#5b6b86}
+body.dark{--ink:#eef3ff;--muted:#8a99ba;background:#06101f}
+html,body{margin:0;background:#fff;width:960px;height:280px;overflow:hidden;font-family:"Qabas","IBM Plex Sans Arabic",system-ui,sans-serif}
+#wrap{position:relative;width:960px;height:280px;display:flex;align-items:center;gap:36px;padding:0 44px;box-sizing:border-box}
+.logo{position:relative;width:176px;height:176px;border-radius:48px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;flex:none;overflow:hidden;box-shadow:0 24px 60px -24px rgba(62,224,255,.7)}
+.logo svg{width:96px;height:96px;position:relative;z-index:2}
+.shine{position:absolute;inset:-40%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);transform:translateX(-120%);z-index:1}
+.ring{position:absolute;inset:0;border-radius:48px;box-shadow:0 0 0 0 rgba(62,224,255,.6);z-index:0}
+.txt{display:flex;flex-direction:column;gap:6px;color:var(--ink)}
+.name{font-size:78px;font-weight:700;line-height:1;letter-spacing:-.5px}
+.url{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:38px;font-weight:600;direction:ltr;text-align:right;color:var(--accent2)}
+.url b{color:var(--accent);font-weight:600}
+.tag{font-size:26px;color:var(--muted)}
+.bar{position:absolute;left:44px;right:44px;bottom:22px;height:6px;border-radius:6px;background:rgba(120,150,210,.18);overflow:hidden}
+.bar i{position:absolute;inset:0;border-radius:6px;background:linear-gradient(90deg,var(--accent2),var(--accent));transform-origin:left;transform:scaleX(0)}
+.spd{position:absolute;left:44px;bottom:36px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:22px;color:var(--muted);direction:ltr}
+.spd b{color:var(--ink);font-weight:600}
+</style></head><body>
+<div id="wrap">
+  <div class="logo"><div class="ring" id="ring"></div><div class="shine" id="shine"></div><svg viewBox="0 0 64 64"><path d="M35 12 20 38h12l-3 14 15-26H33z" fill="#06101f"/></svg></div>
+  <div class="txt">
+    <div class="name">سرعتي</div>
+    <div class="url"><b>iqspeed</b>.net</div>
+    <div class="tag">قياس حقيقي لسرعة الإنترنت في العراق</div>
+  </div>
+  <div class="spd" id="spd"><b>0.0</b> Mbps</div>
+  <div class="bar"><i id="fill"></i></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), ease=x=>1-Math.pow(1-x,3);
+const DUR=3.2;
+window.DUR=DUR;
+window.renderFrame=function(t){
+  // bar sweeps 0→1 over 0.2..2.2, holds, then resets in the last 0.3s
+  let f=t<2.9?ease(seg(t,.2,2.2)):1-seg(t,2.9,3.2);
+  $('fill').style.transform='scaleX('+f+')';
+  const v=t<2.9?142.1*ease(seg(t,.2,2.2)):142.1*(1-seg(t,2.9,3.2));
+  $('spd').innerHTML='<b>'+v.toFixed(1)+'</b> Mbps';
+  // shine sweep across the logo at 0.6..1.4
+  const s=seg(t,.6,1.5); $('shine').style.transform='translateX('+(-120+s*240)+'%)';
+  // soft pulse ring when bar completes (2.2..2.9)
+  const p=seg(t,2.2,2.9); $('ring').style.boxShadow='0 0 0 '+(p*16)+'px rgba(62,224,255,'+(0.5*(1-p))+')';
+};
+if(/dark=1/.test(location.search)) document.body.classList.add('dark');
+renderFrame(0);
+</script></body></html>
