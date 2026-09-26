@@ -36,7 +36,7 @@ jobs:
           xcodebuild -project IQSpeed.xcodeproj -scheme IQSpeed -configuration Release \
             -destination 'generic/platform=iOS Simulator' -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO build 2>&1 | tee xcodebuild-sim.log | grep -E "error:|error |warning: |BUILD|Compiling|Linking|actool" || true
-          grep -q "BUILD SUCCEEDED" xcodebuild-sim.log || { tail -80 xcodebuild-sim.log; exit 1; }
+          grep -q "BUILD SUCCEEDED" xcodebuild-sim.log || { echo "::group::errors"; grep -n -i -B2 -A6 "error" xcodebuild-sim.log | head -150; echo "::endgroup::"; exit 1; }
 
       - name: Smoke test on a simulator (launches the app and checks it loads iqspeed.net)
         run: |
